@@ -6,7 +6,6 @@
 
 Level::~Level() {}
 void Level::draw() {}
-Level::Level(int x, int y) {
-    this->x = x;
-    this->y = y;
+Level::Level(string filename) {
+    
 }
