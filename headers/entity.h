@@ -3,10 +3,10 @@
 
 class Entity {
 	public:
-		virtual ~Entity ();
+		virtual ~Entity();
 		virtual void draw();
 	protected:
-		Entity (int x, int y);
+		Entity(int x, int y);
 	private:
 		int x, y;
 };

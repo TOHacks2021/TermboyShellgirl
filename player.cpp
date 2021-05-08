@@ -2,6 +2,7 @@
 #include <string>
 #include <vector>
 #include "headers/entity.h"
+
 using namespace std;
 
 class Player: public Entity {
@@ -10,8 +11,7 @@ class Player: public Entity {
         void draw();
 };
 
-Player::Player(int x, int y) : Entity(int x, int y);
+Player::Player(int x, int y) : Entity(x, y) { }
 
-void Player::draw() {
+void Player::draw() { }
 
-}
