@@ -24,7 +24,8 @@ curses_init(void)
 {
 	initscr();
 	cbreak();
-	/* curs_off(); */
+	noecho();
+	curs_set(0);
 	keypad(stdscr, TRUE);
 
 	if (FALSE == has_colors()) {

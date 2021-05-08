@@ -3,18 +3,20 @@
 
 #include "levelread.h"
 
-const PlayerControls player1_controls = {
+constexpr PlayerControls player1_controls = {
 	.move_up = 'w',
+	.move_down = 's',
 	.move_left = 'a',
 	.move_right = 'd',
 	.interact = 'x'
 };
 
-const PlayerControls player2_controls = {
+constexpr PlayerControls player2_controls = {
 	.move_up = 'k',
+	.move_down = 'j',
 	.move_left = 'h',
 	.move_right = 'l',
-	.interact = 'j'
+	.interact = 'i'
 };
 
 const LevelTiles tiles = {

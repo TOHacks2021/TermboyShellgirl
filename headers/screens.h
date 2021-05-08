@@ -6,6 +6,7 @@
 #include <ncurses.h>
 #include <menu.h>
 #include "config.h"
+#include "utils.h"
 
 class Screen {
 	public:

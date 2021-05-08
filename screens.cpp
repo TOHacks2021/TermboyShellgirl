@@ -16,24 +16,39 @@ void Screen::update(void) { }
 void Screen::render(void) { }
 
 /* main screen */
+typedef struct MenuInfo {
+	char* label;
+	void (*func)(WINDOW*);
+} MenuInfo;
+
+void play_button(WINDOW*);
+void help_button(WINDOW*);
+void quit_button(WINDOW*);
+
+const MenuInfo menu_info[] = {
+	{ "Play", &play_button },
+	{ "Help", &help_button },
+	{ "Quit", &quit_button },
+	0,
+};
+
 MainScreen::MainScreen(int h, int w, int y, int x)
 : Screen(h, w, y, x)
 {
 	ITEM** menuitems;
-	int menu_text_length = 3;
-	const char* menu_text[] = {
-		"Play",
-		"Help",
-		"Quit"
-	};
+	int menu_info_length = array_length(MenuInfo*, menu_info);
 
-	menuitems = (ITEM**)malloc((menu_text_length+1)*sizeof(ITEM*));
-	for (int i = 0; i < menu_text_length; i++)
-		menuitems[i] = new_item(menu_text[i], "");
-	menuitems[menu_text_length] = NULL;
+	/* init menu items array */
+	menuitems = (ITEM**)malloc((menu_info_length+1)*sizeof(ITEM*));
+	for (int i = 0; i < menu_info_length; i++) {
+		menuitems[i] = new_item(menu_info[i].label, "");
+		set_item_userptr(menuitems[i], (void*)menu_info[i].func);
+	}
+	menuitems[menu_info_length] = NULL;
 
 	this->menu = new_menu(menuitems);
 	post_menu(this->menu);
+	wrefresh(this->win);
 	refresh();
 }
 
@@ -44,15 +59,24 @@ MainScreen::update(void)
 
 	c = getch();
 	switch (c) {
-		/* case player1_controls.move_up: */
-		/* case player2_controls.move_up: */
-		case 'k':
+		case player1_controls.move_up:
+		case player2_controls.move_up:
 			menu_driver(this->menu, REQ_UP_ITEM);
 			break;
-		/* case player1_controls.move_down: */
-		/* case player2_controls.move_down: */
-		case 'j':
+		case player1_controls.move_down:
+		case player2_controls.move_down:
 			menu_driver(this->menu, REQ_DOWN_ITEM);
+			break;
+		case player1_controls.interact:
+		case player2_controls.interact:
+			{
+				ITEM* curitem;
+				void (*callback)(WINDOW*);
+
+				curitem = current_item(this->menu);
+				callback = (void(*)(WINDOW*))item_userptr(curitem);
+				callback(this->win);
+			}
 			break;
 	}
 
@@ -61,8 +85,27 @@ MainScreen::update(void)
 void
 MainScreen::render(void)
 {
-	mvwprintw(this->win, 0, 0, "pee");
-
 	wrefresh(this->win);
+}
+
+void
+play_button(WINDOW* win)
+{
+	mvwprintw(win, 10, 10, "play");
+	wrefresh(win);
+}
+
+void
+help_button(WINDOW* win)
+{
+	mvwprintw(win, 10, 10, "help");
+	wrefresh(win);
+}
+
+void
+quit_button(WINDOW* win)
+{
+	mvwprintw(win, 10, 10, "quit");
+	wrefresh(win);
 }
 

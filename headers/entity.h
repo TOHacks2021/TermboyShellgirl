@@ -19,6 +19,7 @@ class Player: public Entity {
 
 typedef struct PlayerControls {
 	const char move_up;
+	const char move_down;
 	const char move_left;
 	const char move_right;
 	const char interact;	
