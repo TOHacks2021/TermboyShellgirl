@@ -18,10 +18,10 @@ class Player: public Entity {
 };
 
 typedef struct PlayerControls {
-	char move_up;
-	char move_left;
-	char move_right;
-	char interact;	
+	const char move_up;
+	const char move_left;
+	const char move_right;
+	const char interact;	
 } PlayerControls;
 
 

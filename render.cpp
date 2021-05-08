@@ -1,5 +1,24 @@
 #include "headers/render.h"
 
+/* Renderer */
+Renderer::Renderer(Screen* default_screen)
+{
+	this->screen = default_screen;
+}
+
+void
+Renderer::render_screen(void)
+{
+	this->screen->render();
+}
+
+void
+Renderer::update_screen(void)
+{
+	this->screen->update();
+}
+
+/* helper funcs */
 void
 curses_init(void)
 {
