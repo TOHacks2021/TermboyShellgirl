@@ -20,6 +20,8 @@ class Level {
 		std::vector<Entity> entities;
         void parseFile(std::string filename);
         int red_gems_remaining, blue_gems_remaining;
+        int red_spawn_x, red_spawn_y;
+        int blue_spawn_x, blue_spawn_y;
 };
 
 typedef struct LevelTiles {

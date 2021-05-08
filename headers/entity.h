@@ -14,32 +14,30 @@ class Entity {
 		int x, y;
 };
 
-class Player: public Entity {
-    public:
-        Player(int x, int y, char color);
-        void draw() override;
-
+class ColouredEntity: public Entity {
+	public:
 		static const char RED = 'r';
 		static const char BLUE = 'b';
-	
+
 		char getColor() const;
+	protected:
+		ColouredEntity(int x, int y, char color);
+
 	private:
 		char color;
 
 };
 
-class Gem: public Entity {
+class Player: public ColouredEntity {
+    public:
+        Player(int x, int y, char color);
+        void draw() override;
+};
+
+class Gem: public ColouredEntity {
     public:
         Gem(int x, int y, char color);
         void draw() override;
-
-		static const char RED = 'r';
-		static const char BLUE = 'b';
-
-		char getColor() const;
-
-	private:
-		char color;
 
 };
 
@@ -62,6 +60,10 @@ class Switch: public Entity {
 	public:
 		Switch(int x, int y, char id);
 		void draw() override;
+
+		char getId() const;
+		bool getActive() const;
+		void setActive(bool active);
 	private:
 		char id;
 		bool active = false;
@@ -80,6 +82,19 @@ class Door: public Entity {
 	private:
 		char orientation, direction, id;
 		int position = 0;
+};
+
+class Block: public Entity {
+	public:
+		Block(int x, int y);
+		void draw() override;
+};
+
+class Exit: public ColouredEntity {
+	public:
+		Exit(int x, int y, char color);
+		void draw() override;
+
 };
 
 typedef struct PlayerControls {

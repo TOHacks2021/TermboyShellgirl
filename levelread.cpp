@@ -80,13 +80,15 @@ void Level::parseFile(std::string filename) {
 
                     case tiles.red_spawn:
                     {
-                        grid[i][j] = tiles.red_spawn;
+                        red_spawn_x = i;
+                        red_spawn_y = j;
                         break;
                     }
 
                     case tiles.blue_spawn:
                     {
-                        grid[i][j] = tiles.blue_spawn;
+                        blue_spawn_x = i;
+                        blue_spawn_y = j;
                         break;
                     }
 
@@ -115,6 +117,13 @@ void Level::parseFile(std::string filename) {
                         char id = lines.at(j).at(i+1);
                         Switch* sw = new Switch{i, j, id};
                         entities.push_back(sw);
+                        break;
+                    }
+
+                    case tiles.block:
+                    {
+                        Block* block = new Block{i, j};
+                        entities.push_back(block);
                         break;
                     }
                 }
