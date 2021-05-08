@@ -1,14 +1,6 @@
 #ifndef __OPTION_H__
 #define __OPTION_H__
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-
-
-#ifdef __cplusplus
-}
-#endif
+extern void parseargs(char* filename);
 
 #endif // __OPTION_H__
