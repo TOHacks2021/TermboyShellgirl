@@ -1,5 +1,5 @@
-#ifndef __ENTITY_H__
-#define __ENTITY_H__
+#ifndef __CONFIG_H__
+#define __CONFIG_H__
 
 #ifdef __cplusplus
 extern "C" {
@@ -11,4 +11,4 @@ extern "C" {
 }
 #endif
 
-#endif // __ENTITY_H__
+#endif // __CONFIG_H__
