@@ -22,4 +22,12 @@ Gem::Gem(int x, int y, char color) : Entity(x, y) {
 void Gem::draw() { }
 
 
+PressurePlate::PressurePlate(int x, int y, char id) : Entity(x, y) { 
+    this->id = id;
+}
+void PressurePlate::draw() { }
 
+Switch::Switch(int x, int y, char id) : Entity(x, y) { 
+    this->id = id;
+}
+void Switch::draw() { }
