@@ -2,3 +2,4 @@
 *.exe
 makefile
 tbsg
+.vscode

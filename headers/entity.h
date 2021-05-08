@@ -18,4 +18,5 @@ typedef struct PlayerControls {
 	char interact;	
 } PlayerControls;
 
+
 #endif // __ENTITY_H__

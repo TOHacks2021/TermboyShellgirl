@@ -1,19 +1,22 @@
 #include "headers/levelread.h"
+#include <fstream>
+#include <string>
+#include <vector>
 
-using namespace std;
-
-Level::~Level() { }
-void Level::draw() { }
-Level::Level(string filename) {
+Level::~Level() {}
+Level::Level(std::string filename) {
     parseFile(filename);
 }
 
-void Level::parseFile(string filename) {
-    /* ifstream file(filename); */
-    /* vector<string> lines; */
-    /* string line; */
+void Level::draw() {}
 
-    /* while (getline(file, line)) { */
-    /*     lines.push_back(line); */
-    /* } */
+
+void Level::parseFile(std::string filename) {
+    std::ifstream file(filename);
+    std::vector<std::string> lines;
+    std::string line;
+
+    while (getline(file, line)) {
+        lines.push_back(line);
+    }
 }
