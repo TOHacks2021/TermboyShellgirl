@@ -19,20 +19,25 @@ class Level {
         int length, height;
 		std::vector<Entity> entities;
         void parseFile(std::string filename);
+        int red_gems_remaining, blue_gems_remaining;
 };
 
 typedef struct LevelTiles {
-    char empty;
-	char wall;
-	char lava;
-	char water;
-	char green_mud;
-	char red_spawn;
-	char blue_spawn;
-	char red_exit;
-	char blue_exit;
-	char sw = '/';
-	char pressure_plate = '=';
+    const char empty;
+	const char wall;
+	const char lava;
+	const char water;
+	const char green_mud;
+	const char red_spawn;
+	const char blue_spawn;
+	const char red_exit;
+	const char blue_exit;
+	const char sw;
+	const char pressure_plate;
+    const char red_gem;
+    const char blue_gem;
+    const char block;
+
 } LevelTiles;
 
 #endif // __LEVELREAD_H__

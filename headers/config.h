@@ -30,7 +30,10 @@ const LevelTiles tiles = {
 	.red_exit = '3',
 	.blue_exit = '4',
 	.sw = '/',
-	.pressure_plate = '='
+	.pressure_plate = '=',
+	.red_gem = '<',
+	.blue_gem = '>',
+	.block = "@"
 
 };
 
