@@ -4,12 +4,16 @@
 Wall: # -> #
 Player spawn: 1, 2 -> none
 Player exit: 3, 4 -> none
-Switches: / or \ 
+Switches: / or \
 Door: ------A, lowercase shorter doors
-Pressure plate: = -> /=\ 
+Pressure plate: = -> /=\
 Lava: L -> ~
 Water: W -> ~
 Green mud: G -> ~
-Block: O ->   
+Block: @
+Red Gems: <
+Blue Gems: >
+Red Doors: [
+Blue Doors: ]
 ```
 
