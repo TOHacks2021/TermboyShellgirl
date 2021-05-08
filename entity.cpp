@@ -11,10 +11,15 @@ Entity::Entity(int x, int y) {
     this->y = y;
 }
 
-
-
-Player::Player(int x, int y) : Entity(x, y) { }
+Player::Player(int x, int y, char color) : Entity(x, y) { 
+    this->color = color;
+}
 void Player::draw() { }
+
+Gem::Gem(int x, int y, char color) : Entity(x, y) { 
+    this->color = color;
+}
+void Gem::draw() { }
 
 
 

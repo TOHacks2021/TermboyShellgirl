@@ -19,7 +19,7 @@ constexpr PlayerControls player2_controls = {
 	.interact = 'i'
 };
 
-const LevelTiles tiles = {
+constexpr LevelTiles tiles = {
 	.empty = ' ',
 	.wall = '#',
 	.lava = 'L',
@@ -33,7 +33,7 @@ const LevelTiles tiles = {
 	.pressure_plate = '=',
 	.red_gem = '<',
 	.blue_gem = '>',
-	.block = "@"
+	.block = '@'
 
 };
 

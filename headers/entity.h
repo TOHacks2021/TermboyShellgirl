@@ -19,8 +19,8 @@ class Player: public Entity {
         Player(int x, int y, char color);
         void draw() override;
 
-		const char RED = 'r';
-		const char BLUE = 'b';
+		static const char RED = 'r';
+		static const char BLUE = 'b';
 	
 		char getColor() const;
 	private:
@@ -33,8 +33,8 @@ class Gem: public Entity {
         Gem(int x, int y, char color);
         void draw() override;
 
-		const char RED = 'r';
-		const char BLUE = 'b';
+		static const char RED = 'r';
+		static const char BLUE = 'b';
 
 		char getColor() const;
 
@@ -72,10 +72,10 @@ class Door: public Entity {
 		Door(int x, int y, char orientaion, char direction, char id);
 		void draw() override;
 
-		const char VER_DIR = '0';
-		const char HOR_DIR = '1';
-		const char VER_OR = '2';
-		const char HOR_OR = '3';
+		static const char VER_DIR = '0';
+		static const char HOR_DIR = '1';
+		static const char VER_OR = '2';
+		static const char HOR_OR = '3';
 
 	private:
 		char orientation, direction, id;
