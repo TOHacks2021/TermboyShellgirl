@@ -11,14 +11,9 @@ Entity::Entity(int x, int y) {
     this->y = y;
 }
 
-class Player: public Entity {
-    public:
-        Player (int x, int y);
-        void draw();
-};
+
 
 Player::Player(int x, int y) : Entity(x, y) { }
-
 void Player::draw() { }
 
 

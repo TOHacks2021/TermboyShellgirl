@@ -1,7 +1,6 @@
 #ifndef __CONFIG_H__
 #define __CONFIG_H__
 
-#include "player.h"
 #include "levelread.h"
 
 const PlayerControls player1_controls = {
@@ -18,9 +17,18 @@ const PlayerControls player2_controls = {
 	.interact = 'j'
 };
 
-const Level tiles = {
-	.empty = " ";
-	.wall = "#";
+const LevelTiles tiles = {
+	.empty = ' ',
+	.wall = '#',
+	.lava = 'L',
+	.water = 'W',
+	.green_mud = 'G',
+	.red_spawn = '1',
+	.blue_spawn = '2',
+	.red_exit = '3',
+	.blue_exit = '4',
+	.sw = '/',
+	.pressure_plate = '='
 
 };
 

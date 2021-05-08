@@ -11,6 +11,12 @@ class Entity {
 		int x, y;
 };
 
+class Player: public Entity {
+    public:
+        Player (int x, int y);
+        void draw() override;
+};
+
 typedef struct PlayerControls {
 	char move_up;
 	char move_left;

@@ -7,7 +7,7 @@ LIBS=-lncurses
 %.o: %.c headers/%.h
 	$(CC) $(CFLAGS) -c $<
 
-tbsg: tbsg.cpp option.o levelread.o entity.o player.o render.o screens.o
+tbsg: tbsg.cpp option.o levelread.o entity.o render.o screens.o
 	$(CC) $(CFLAGS) -o $@ $^ $(LIBS)
 
 clean:
