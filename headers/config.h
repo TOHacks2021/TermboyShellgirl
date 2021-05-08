@@ -1,7 +1,7 @@
 #ifndef __CONFIG_H__
 #define __CONFIG_H__
 
-#include <entity.h>
+#include <player.h>
 
 const PlayerControls player1_controls = {
 	.move_up = 'w',
@@ -16,5 +16,7 @@ const PlayerControls player2_controls = {
 	.move_right = 'l',
 	.interact = 'j'
 };
+
+
 
 #endif // __CONFIG_H__

@@ -15,6 +15,7 @@ class Level {
 		char** grid;
         int time;
         vector<Entity> entities;
+        void parseFile();
 };
 
 
