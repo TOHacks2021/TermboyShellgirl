@@ -7,7 +7,7 @@ LIBS=
 %.o: %.c headers/%.h
 	$(CC) $(CFLAGS) -c $<
 
-tbsg: tbsg.cpp option.o levelread.o
+tbsg: tbsg.cpp option.o levelread.o entity.o
 	$(CC) $(CFLAGS) -o $@ $^ $(LIBS)
 
 clean:
