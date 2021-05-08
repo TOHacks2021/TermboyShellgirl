@@ -1,20 +1,17 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include "headers/entity.h"
 using namespace std;
 
-class Entity {
+class Player: public Entity {
     public:
-        virtual ~Entity ();
-        virtual draw();
-    protected:
-        Entity ();
-    private:
-        int x, y;
+        Player (int x, int y);
+        void draw();
 };
 
-Entity::~Entity() {}
-Entity::Entity(int x, int y) {
-    this->x = x;
-    this->y = y;
+Player::Player(int x, int y) : Entity(int x, int y);
+
+void Player::draw() {
+
 }

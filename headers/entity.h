@@ -5,6 +5,15 @@
 extern "C" {
 #endif
 
+    class Entity {
+        public:
+            virtual ~Entity ();
+            virtual void draw();
+        protected:
+            Entity ();
+        private:
+            int x, y;
+    };
 
 
 #ifdef __cplusplus
