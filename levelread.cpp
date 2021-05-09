@@ -50,16 +50,20 @@ void Level::parseFile(std::string filename) {
                 grid[i][j] = tiles.wall;
             }
             else if (LH.find(c) != std::string::npos) {
-                
+                Door* door = new Door{i, j, c, Door::LH};
+                entities.push_back(door);
             }
             else if (RH.find(c) != std::string::npos) {
-  
+                Door* door = new Door{i, j, c, Door::RH};
+                entities.push_back(door);
             }
             else if (LV.find(c) != std::string::npos) {
-  
+                Door* door = new Door{i, j, c, Door::LV};
+                entities.push_back(door);
             }   
             else if (RV.find(c) != std::string::npos) {
-    
+                Door* door = new Door{i, j, c, Door::RV};
+                entities.push_back(door);
             }
             else {
                 grid[i][j] = tiles.empty;
@@ -117,12 +121,14 @@ void Level::parseFile(std::string filename) {
                     case tiles.red_exit:
                     {
                         grid[i][j] = tiles.red_exit;
+                        entities.push(new Exit{i, j, ColouredEntity::RED});
                         break;
                     }
 
                     case tiles.blue_exit:
                     {
                         grid[i][j] = tiles.blue_exit;
+                        entities.push(new Exit{i, j, ColouredEntity::BLUE});
                         break;
                     }
 

@@ -88,6 +88,11 @@ class Door: public Entity {
 		char getId() const;
 		char getType() const;
 
+		static const char LH = '0';
+		static const char RH = '1';
+		static const char LV = '2';
+		static const char RV = '3';
+
 	private:
 		char id;
 		char type;
