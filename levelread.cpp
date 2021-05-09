@@ -120,14 +120,14 @@ void Level::parseFile(std::string filename) {
 
                     case tiles.red_exit:
                     {
-                        grid[i][j] = tiles.red_exit;
+                
                         entities.push(new Exit{i, j, ColouredEntity::RED});
                         break;
                     }
 
                     case tiles.blue_exit:
                     {
-                        grid[i][j] = tiles.blue_exit;
+                 
                         entities.push(new Exit{i, j, ColouredEntity::BLUE});
                         break;
                     }
