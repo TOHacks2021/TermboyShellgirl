@@ -1,16 +1,17 @@
 #ifndef __ENTITY_H__
 #define __ENTITY_H__
 
+#include <ncurses.h>
+
 class Entity {
 	public:
 		virtual ~Entity();
-		virtual void draw();
+		virtual void draw(WINDOW* win);
 
 		int getX() const;
 		int getY() const;
 	protected:
 		Entity(int x, int y);
-	private:
 		int x, y;
 };
 
@@ -31,20 +32,19 @@ class ColouredEntity: public Entity {
 class Player: public ColouredEntity {
     public:
         Player(int x, int y, char color);
-        void draw() override;
+        void draw(WINDOW* win) override;
 };
 
 class Gem: public ColouredEntity {
     public:
         Gem(int x, int y, char color);
-        void draw() override;
-
+        void draw(WINDOW* win) override;
 };
 
 class PressurePlate: public Entity {
 	public:
 		PressurePlate(int x, int y, char id);
-		void draw() override;
+		void draw(WINDOW* win) override;
 
 		char getId() const;
 		bool getActive() const;
@@ -53,13 +53,12 @@ class PressurePlate: public Entity {
 	private:
 		char id;
 		bool active = false;
-
 };
 
 class Switch: public Entity {
 	public:
 		Switch(int x, int y, char id);
-		void draw() override;
+		void draw(WINDOW* win) override;
 
 		char getId() const;
 		bool getActive() const;
@@ -72,20 +71,19 @@ class Switch: public Entity {
 class Block: public Entity {
 	public:
 		Block(int x, int y);
-		void draw() override;
+		void draw(WINDOW* win) override;
 };
 
 class Exit: public ColouredEntity {
 	public:
 		Exit(int x, int y, char color);
-		void draw() override;
-
+		void draw(WINDOW* win) override;
 };
 
 class Door: public Entity {
 	public:
 		Door(int x, int y, char id, char type);
-		void draw() override;
+		void draw(WINDOW* win) override;
 
 		char getId() const;
 		char getType() const;
@@ -93,7 +91,6 @@ class Door: public Entity {
 	private:
 		char id;
 		char type;
-
 };
 
 

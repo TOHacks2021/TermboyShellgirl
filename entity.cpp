@@ -5,7 +5,7 @@
 #include "headers/entity.h"
 
 Entity::~Entity() {}
-void Entity::draw() {}
+void Entity::draw(WINDOW* win) {}
 Entity::Entity(int x, int y) {
     this->x = x;
     this->y = y;
@@ -20,7 +20,7 @@ int Entity::getY() const {
 }
 
 Player::Player(int x, int y, char color) : ColouredEntity(x, y, color) { }
-void Player::draw() { }
+void Player::draw(WINDOW* win) { }
 
 ColouredEntity::ColouredEntity(int x, int y, char color) : Entity(x, y) { 
     this->color = color;
@@ -30,13 +30,17 @@ char ColouredEntity::getColor() const {
 }
 
 Gem::Gem(int x, int y, char color) : ColouredEntity(x, y, color) { }
-void Gem::draw() { }
 
+void
+Gem::draw(WINDOW* win)
+{
+	mvwprintw(win, this->y, this->x, "$");
+}
 
 PressurePlate::PressurePlate(int x, int y, char id) : Entity(x, y) { 
     this->id = id;
 }
-void PressurePlate::draw() { }
+void PressurePlate::draw(WINDOW* win) { }
 bool PressurePlate::getActive() const {
     return active;
 }
@@ -51,7 +55,7 @@ void PressurePlate::setActive(bool a) {
 Switch::Switch(int x, int y, char id) : Entity(x, y) { 
     this->id = id;
 }
-void Switch::draw() { }
+void Switch::draw(WINDOW* win) { }
 bool Switch::getActive() const {
     return active;
 }
@@ -63,14 +67,14 @@ void Switch::setActive(bool a) {
 }
 
 Block::Block(int x, int y) : Entity(x, y) { }
-void Block::draw() { }
+void Block::draw(WINDOW* win) { }
 
 Exit::Exit(int x, int y, char color) : ColouredEntity(x, y, color) { }
-void Exit::draw() { }
+void Exit::draw(WINDOW* win) { }
 
 Door::Door(int x, int y, char id, char type) : Entity(x, y) {
     this->id = id;
     this->type = type;
 }
-void Door::draw() { }
+void Door::draw(WINDOW* win) { }
 

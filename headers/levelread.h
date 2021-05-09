@@ -1,14 +1,16 @@
 #ifndef __LEVELREAD_H__
 #define __LEVELREAD_H__
 
+class Level;
+
 #include <string>
 #include <vector>
 #include <iostream>
-
 #include "entity.h"
 
 class Level {
 	public:
+		std::vector<Entity> entities;
 		Level(std::string filename);
 		~Level();
 		void draw();
