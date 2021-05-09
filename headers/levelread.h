@@ -22,6 +22,8 @@ class Level {
 		void remove_blue_gem();
 		Player* red_player;
 		Player* blue_player;
+        int red_gems_remaining, blue_gems_remaining;
+		std::string filename;
 		std::vector<Block*> blocks;
 
 	private:
@@ -29,7 +31,6 @@ class Level {
         int time; 
         int length, height;
         void parseFile(std::string filename);
-        int red_gems_remaining, blue_gems_remaining;
         int red_spawn_x, red_spawn_y;
         int blue_spawn_x, blue_spawn_y;
 };

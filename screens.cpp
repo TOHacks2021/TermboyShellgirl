@@ -140,6 +140,8 @@ GameScreen::render(void)
 {
 	char** grid = this->level->getGrid();
 
+	wclear(this->win);
+
 	for (int i = 0; i < this->level->getLength(); i++) {
 		for (int j = 0; j < this->level->getHeight(); j++) {
 
@@ -187,7 +189,21 @@ GameScreen::render(void)
 	/* render ui */
 	wclear(this->ui_win);
 	box(this->ui_win, 0 ,0);
-	mvwprintw(this->ui_win, 0, 0, "stats");
+	mvwprintw(this->ui_win, 1, 2, "Level: %s", strToChar(this->level->filename));
+	mvwprintw(this->ui_win, 2, 2, "current player: ");
+	if (Player::active_color == ColouredEntity::RED) {
+		wattron(this->ui_win, COLOR_PAIR(term_red));
+		wprintw(this->ui_win, "RED");
+		wattroff(this->ui_win, COLOR_PAIR(term_red));
+	} else {
+		wattron(this->ui_win, COLOR_PAIR(term_blue));
+		wprintw(this->ui_win, "BLUE");
+		wattroff(this->ui_win, COLOR_PAIR(term_blue));
+	}
+	mvwprintw(this->ui_win, 3, 2, "Red Gems Left: %d", this->level->red_gems_remaining);
+	mvwprintw(this->ui_win, 4, 2, "Blue Gems Left: %d", this->level->blue_gems_remaining);
+
+
 	wrefresh(this->win);
 }
 

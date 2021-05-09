@@ -14,6 +14,7 @@ class GameScreen;
 #include "utils.h"
 #include "render.h"
 #include "levelread.h"
+#include "utils.h"
 
 class Screen {
 	public:

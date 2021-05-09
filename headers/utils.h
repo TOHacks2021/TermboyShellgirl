@@ -1,6 +1,8 @@
 #ifndef __UTILS_H__
 #define __UTILS_H__
 
+#include <string>
+
 #define \
 array_length(type, array)               \
 ({                                      \
@@ -16,5 +18,7 @@ array_length(type, array)               \
                                         \
     m_len+1;                            \
 })
+
+char* strToChar(std::string str);
 
 #endif // __UTILS_H__

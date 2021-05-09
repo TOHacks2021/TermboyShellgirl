@@ -12,8 +12,5 @@ DEPS=levelread.o entity.o render.o screens.o utils.o headers/config.h
 tbsg: tbsg.cpp $(DEPS)
 	$(CC) $(CFLAGS) -o $@ $^ $(LIBS)
 
-nick: nick.cpp $(DEPS)
-	$(CC) $(CFLAGS) -o $@ $^ $(LIBS)
-
 clean:
-	rm tbsg nick *.o
+	rm tbsg *.o

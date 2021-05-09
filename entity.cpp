@@ -50,7 +50,6 @@ void
 Player::update(Level* level)
 {
 	this->moveVertical(level);
-
 	if (this->getColor() != Player::active_color) return;
 
 	int c;

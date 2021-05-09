@@ -7,6 +7,9 @@
 
 Level::~Level() {}
 Level::Level(std::string filename) {
+	this->filename = filename;
+	this->red_gems_remaining = 0;
+	this->blue_gems_remaining = 0;
     parseFile(filename);
 }
 
