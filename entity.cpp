@@ -68,4 +68,9 @@ void Block::draw() { }
 Exit::Exit(int x, int y, char color) : ColouredEntity(x, y, color) { }
 void Exit::draw() { }
 
+Door::Door(int x, int y, char id, char type) : Entity(x, y) {
+    this->id = id;
+    this->type = type;
+}
+void Door::draw() { }
 

@@ -10,7 +10,14 @@ Level::Level(std::string filename) {
     parseFile(filename);
 }
 
-void Level::draw() {}
+void Level::draw() {
+    for (int i = 0; i < length; i++) {
+        for (int j = 0; j < height; j++) {
+            std::cout << grid[i][j];
+        }
+        std::cout << std::endl;
+    }
+}
 
 
 void Level::parseFile(std::string filename) {
@@ -31,14 +38,29 @@ void Level::parseFile(std::string filename) {
         grid[i] = new char[height];
     }
 
-    const std::string letters = "abcdefhijkmnopqrstuvxyz";
-    const std::string doorLetters = "ABCDEFHIJKMNOPQRSTUVXYZ";
+    const std::string letters = "abcdefghijklmnopqrstuvwxyz";
+    const std::string LH = "ABCDEF";
+    const std::string RH = "GHIJKL";
+    const std::string LV = "MNOPQRS";
+    const std::string RV = "TUVWXYZ";
 
     for (int i = 0; i < length; i++) {
         for (int j = 0; j < height; j++) {
             if (lines.at(j).at(i) == tiles.wall || letters.find((lines.at(j).at(i)) 
             != std::string::npos)) {
                 grid[i][j] = tiles.wall;
+            }
+            else if (LH.find((lines.at(j).at(i)))) {
+                //Door* door = new Door{};
+            }
+            else if (RH.find((lines.at(j).at(i)))) {
+
+            }
+            else if (LV.find((lines.at(j).at(i)))) {
+
+            }
+            else if (RV.find((lines.at(j).at(i)))) {
+
             }
             else {
                 grid[i][j] = tiles.empty;

@@ -69,21 +69,6 @@ class Switch: public Entity {
 		bool active = false;
 };
 
-class Door: public Entity {
-	public:
-		Door(int x, int y, char orientaion, char direction, char id);
-		void draw() override;
-
-		static const char VER_DIR = '0';
-		static const char HOR_DIR = '1';
-		static const char VER_OR = '2';
-		static const char HOR_OR = '3';
-
-	private:
-		char orientation, direction, id;
-		int position = 0;
-};
-
 class Block: public Entity {
 	public:
 		Block(int x, int y);
@@ -96,6 +81,21 @@ class Exit: public ColouredEntity {
 		void draw() override;
 
 };
+
+class Door: public Entity {
+	public:
+		Door(int x, int y, char id, char type);
+		void draw() override;
+
+		char getId() const;
+		char getType() const;
+
+	private:
+		char id;
+		char type;
+
+};
+
 
 typedef struct PlayerControls {
 	const char move_up;
