@@ -171,6 +171,7 @@ GameScreen::render(void)
 	for (Entity* entity : this->level->entities) {
 		entity->draw(this->win);
 	}
+	/* this->level->; */	
 
 	/* render ui */
 	wclear(this->ui_win);

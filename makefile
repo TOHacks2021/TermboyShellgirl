@@ -2,7 +2,7 @@ CC=g++
 CFLAGS=-pipe -O2 -Wall -Wno-write-strings
 LIBS=-lmenu -lncurses
 
-DEPS=option.o levelread.o entity.o render.o screens.o utils.o headers/config.h
+DEPS=levelread.o entity.o render.o screens.o utils.o headers/config.h
 
 .PHONY: clean
 

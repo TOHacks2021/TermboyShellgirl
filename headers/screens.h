@@ -44,5 +44,4 @@ class GameScreen : public Screen {
 		WINDOW* ui_win;
 };
 
-
 #endif // __SCREENS_H__

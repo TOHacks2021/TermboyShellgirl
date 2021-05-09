@@ -22,7 +22,18 @@ int Entity::getY() const {
 }
 
 Player::Player(int x, int y, char color) : ColouredEntity(x, y, color) { }
-void Player::draw(WINDOW* win) { }
+
+void
+Player::draw(WINDOW* win)
+{
+	int hlcolor = COLOR_PAIR((ColouredEntity::RED == this->getColor()) ?  term_red : term_blue);
+	
+	wattron(win, COLOR_PAIR(hlcolor));
+	wattron(win, A_BOLD);
+	mvwprintw(win, this->y-1, this->x, "o");
+	mvwprintw(win, this->y, this->x, " ");
+	wattrset(win, 0);
+}
 
 void Player::update(Level* level) {
 

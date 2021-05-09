@@ -15,6 +15,8 @@ class Level {
 		~Level();
 		void draw();
         char** getGrid() const;
+		int getLength() const;
+		int getHeight() const;
 		void update();
 		void remove_red_gem();
 		void remove_blue_gem();
