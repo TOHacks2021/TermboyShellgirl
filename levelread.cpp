@@ -51,16 +51,16 @@ void Level::parseFile(std::string filename) {
                 grid[i][j] = tiles.wall;
             }
             else if (LH.find(c) != std::string::npos) {
-                grid[i][j] = tiles.wall;
+                
             }
             else if (RH.find(c) != std::string::npos) {
-                grid[i][j] = tiles.wall;
+  
             }
             else if (LV.find(c) != std::string::npos) {
-                grid[i][j] = tiles.wall;
+  
             }   
             else if (RV.find(c) != std::string::npos) {
-                grid[i][j] = tiles.wall;
+    
             }
             else {
                 grid[i][j] = tiles.empty;
@@ -153,4 +153,5 @@ void Level::parseFile(std::string filename) {
             }
         }
     }
+    std::cout << entities.size() << std::endl;
 }
