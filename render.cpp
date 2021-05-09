@@ -52,7 +52,15 @@ curses_init(void)
 		fprintf(stderr, "Your terminal does not support color.\n");
 		exit(1);
 	}
+	start_color();
+	curses_colors();
+}
 
+void
+curses_colors(void)
+{
+	init_pair(term_red, COLOR_RED, COLOR_BLACK);
+	init_pair(term_blue, COLOR_BLUE, COLOR_BLACK);
 }
 
 void

@@ -2,6 +2,7 @@
 #include <string>
 #include <vector>
 
+#include "headers/render.h"
 #include "headers/entity.h"
 
 Entity::~Entity() {}
@@ -34,13 +35,21 @@ Gem::Gem(int x, int y, char color) : ColouredEntity(x, y, color) { }
 void
 Gem::draw(WINDOW* win)
 {
+	int hlcolor = COLOR_PAIR((ColouredEntity::RED == this->getColor()) ?  term_red : term_blue);
+	wattron(win, hlcolor);
 	mvwprintw(win, this->y, this->x, "$");
+	wattroff(win, hlcolor);
 }
 
 PressurePlate::PressurePlate(int x, int y, char id) : Entity(x, y) { 
     this->id = id;
 }
-void PressurePlate::draw(WINDOW* win) { }
+
+void
+PressurePlate::draw(WINDOW* win)
+{ 
+	mvwprintw(win, this->y, this->x, "=");
+}
 bool PressurePlate::getActive() const {
     return active;
 }
@@ -51,11 +60,16 @@ void PressurePlate::setActive(bool a) {
     active = a;
 }
 
-
 Switch::Switch(int x, int y, char id) : Entity(x, y) { 
     this->id = id;
 }
-void Switch::draw(WINDOW* win) { }
+
+void
+Switch::draw(WINDOW* win)
+{
+	mvwprintw(win, this->y, this->x, this->getActive() ? "\\" : "/");
+}
+
 bool Switch::getActive() const {
     return active;
 }
@@ -67,10 +81,32 @@ void Switch::setActive(bool a) {
 }
 
 Block::Block(int x, int y) : Entity(x, y) { }
-void Block::draw(WINDOW* win) { }
+
+void
+Block::draw(WINDOW* win)
+{
+	mvwprintw(win, this->y, this->x, "@");
+}
 
 Exit::Exit(int x, int y, char color) : ColouredEntity(x, y, color) { }
-void Exit::draw(WINDOW* win) { }
+
+void
+Exit::draw(WINDOW* win)
+{
+	char* door_char = "";
+
+	switch (this->getColor()) {
+		case ColouredEntity::RED:
+			door_char = "]";
+			break;
+		case ColouredEntity::BLUE:
+			door_char = "[";
+			break;
+	}
+	/* careful not to print off the screen */
+	mvwprintw(win, this->y, this->x, door_char);
+	mvwprintw(win, this->y-1, this->x, door_char);
+}
 
 Door::Door(int x, int y, char id, char type) : Entity(x, y) {
     this->id = id;
