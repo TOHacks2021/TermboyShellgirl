@@ -72,19 +72,19 @@ void Level::parseFile(std::string filename) {
             }
             else if (LH.find(c) != std::string::npos) {
                 Door* door = new Door{i, j, c, Door::LH};
-                entities.push_back(door);
+                doors.push_back(door);
             }
             else if (RH.find(c) != std::string::npos) {
                 Door* door = new Door{i, j, c, Door::RH};
-                entities.push_back(door);
+                doors.push_back(door);
             }
             else if (LV.find(c) != std::string::npos) {
                 Door* door = new Door{i, j, c, Door::LV};
-                entities.push_back(door);
+                doors.push_back(door);
             }   
             else if (RV.find(c) != std::string::npos) {
                 Door* door = new Door{i, j, c, Door::RV};
-                entities.push_back(door);
+                doors.push_back(door);
             }
             else {
                 grid[i][j] = tiles.empty;
