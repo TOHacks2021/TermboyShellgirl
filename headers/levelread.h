@@ -17,7 +17,7 @@ class Level {
 		char** grid;
         int time; 
         int length, height;
-		std::vector<Entity> entities;
+		std::vector<Entity*> entities;
         void parseFile(std::string filename);
         int red_gems_remaining, blue_gems_remaining;
         int red_spawn_x, red_spawn_y;

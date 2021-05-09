@@ -24,7 +24,6 @@ void Level::parseFile(std::string filename) {
     std::ifstream file(filename);
     std::vector<std::string> lines;
     std::string line;
-    std::vector<Entity*> entities;
 
     while (getline(file, line)) {
         lines.push_back(line);
@@ -153,5 +152,4 @@ void Level::parseFile(std::string filename) {
             }
         }
     }
-    std::cout << entities.size() << std::endl;
 }
