@@ -22,10 +22,12 @@ class Renderer {
 };
 
 enum TermColors {
-	term_blue = 1,
-	term_red,
-	term_water,
+	term_red = 1,
+	term_blue,
+	term_red_bg,
+	term_blue_bg,
 	term_lava,
+	term_water,
 	term_poison,
 	term_wall
 };

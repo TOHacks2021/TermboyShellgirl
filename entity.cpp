@@ -6,12 +6,12 @@
 #include "headers/entity.h"
 
 Entity::~Entity() {}
-void Entity::draw(WINDOW* win) {}
+void Entity::draw(WINDOW* win) { }
+void Entity::update(Level* level) { }
 Entity::Entity(int x, int y) {
     this->x = x;
     this->y = y;
 }
-void Entity::update(Level* level) { }
 
 int Entity::getX() const {
     return x;
@@ -21,22 +21,41 @@ int Entity::getY() const {
     return y;
 }
 
-Player::Player(int x, int y, char color) : ColouredEntity(x, y, color) { }
+Player::Player(int x, int y, char color, PlayerControls controls)
+: ColouredEntity(x, y, color)
+{
+	this->controls = controls;
+}
 
 void
 Player::draw(WINDOW* win)
 {
 	int hlcolor = COLOR_PAIR((ColouredEntity::RED == this->getColor()) ?  term_red : term_blue);
 	
-	wattron(win, COLOR_PAIR(hlcolor));
+	wattron(win, hlcolor);
 	wattron(win, A_BOLD);
 	mvwprintw(win, this->y-1, this->x, "o");
+	wattrset(win, 0);
+
+	hlcolor = COLOR_PAIR((ColouredEntity::RED == this->getColor()) ?  term_red_bg : term_blue_bg);
+	wattron(win, hlcolor);
 	mvwprintw(win, this->y, this->x, " ");
 	wattrset(win, 0);
 }
 
-void Player::update(Level* level) {
+void Player::update(Level* level)
+{
+	int c;
+	PlayerControls ctr = this->controls;
 
+	timeout(100);
+
+	c = getch();
+	if (c == ctr.move_left) {
+		this->x -= 1;
+	} else if (c == ctr.move_right) {
+		this->x += 1;
+	}
 }
 
 ColouredEntity::ColouredEntity(int x, int y, char color) : Entity(x, y) { 
@@ -75,7 +94,6 @@ void Gem::update(Level* level) {
          del = true;
     }
     
-
 
     for (int i = 0; i < level->entities.size(); i++) {
         Entity* e = level->entities.at(i);
@@ -164,8 +182,12 @@ Exit::draw(WINDOW* win)
 			break;
 	}
 	/* careful not to print off the screen */
+	int hlcolor = COLOR_PAIR((ColouredEntity::RED == this->getColor()) ?  term_red : term_blue);
+	wattron(win, hlcolor);
 	mvwprintw(win, this->y-1, this->x, door_char);
 	mvwprintw(win, this->y, this->x, door_char);
+	wattroff(win, hlcolor);
+
 }
 
 void Exit::update(Level* level) {

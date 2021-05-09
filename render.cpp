@@ -61,8 +61,10 @@ curses_colors(void)
 {
 	init_pair(term_red, COLOR_RED, COLOR_BLACK);
 	init_pair(term_blue, COLOR_BLUE, COLOR_BLACK);
-	init_pair(term_water, COLOR_WHITE, COLOR_CYAN);
+	init_pair(term_red_bg, COLOR_RED, COLOR_RED);
+	init_pair(term_blue_bg, COLOR_BLUE, COLOR_BLUE);
 	init_pair(term_lava, COLOR_BLACK, COLOR_RED);
+	init_pair(term_water, COLOR_WHITE, COLOR_CYAN);
 	init_pair(term_poison, COLOR_BLACK, COLOR_GREEN);
 	init_pair(term_wall, COLOR_BLACK, COLOR_WHITE);
 }

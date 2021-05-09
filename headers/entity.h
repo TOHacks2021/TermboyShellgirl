@@ -4,6 +4,14 @@
 #include <ncurses.h>
 #include "levelread.h"
 
+typedef struct PlayerControls {
+	char move_up;
+	char move_down;
+	char move_left;
+	char move_right;
+	char interact;	
+} PlayerControls;
+
 class Entity {
 	public:
 		virtual ~Entity();
@@ -33,9 +41,13 @@ class ColouredEntity: public Entity {
 
 class Player: public ColouredEntity {
     public:
-        Player(int x, int y, char color);
+        Player(int x, int y, char color, PlayerControls controls);
         void draw(WINDOW* win) override;
 		void update(Level* level) override;
+		/* void moveLeft(void); */
+		/* void moveRight(void); */
+	private:
+		PlayerControls controls;
 };
 
 class Gem: public ColouredEntity {
@@ -107,14 +119,6 @@ class Door: public Entity {
 		char type;
 };
 
-
-typedef struct PlayerControls {
-	const char move_up;
-	const char move_down;
-	const char move_left;
-	const char move_right;
-	const char interact;	
-} PlayerControls;
 
 
 #endif // __ENTITY_H__

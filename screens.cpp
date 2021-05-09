@@ -55,30 +55,39 @@ MainScreen::MainScreen(int h, int w, int y, int x)
 void
 MainScreen::update(void)
 {
+	#define ctr1 player1_controls
+	#define ctr2 player2_controls
+
 	int c;
 
 	c = getch();
-	switch (c) {
-		case player1_controls.move_up:
-		case player2_controls.move_up:
-			menu_driver(this->menu, REQ_UP_ITEM);
-			break;
-		case player1_controls.move_down:
-		case player2_controls.move_down:
-			menu_driver(this->menu, REQ_DOWN_ITEM);
-			break;
-		case player1_controls.interact:
-		case player2_controls.interact:
-			{
-				ITEM* curitem;
-				void (*callback)(WINDOW*);
+	if (c == ctr1.move_up || c == ctr2.move_up) {
 
-				curitem = current_item(this->menu);
-				callback = (void(*)(WINDOW*))item_userptr(curitem);
-				callback(this->win);
-			}
-			break;
 	}
+	/* switch (c) { */
+	/* 	case player1_controls.move_up: */
+	/* 	case player2_controls.move_up: */
+	/* 		menu_driver(this->menu, REQ_UP_ITEM); */
+	/* 		break; */
+	/* 	case player1_controls.move_down: */
+	/* 	case player2_controls.move_down: */
+	/* 		menu_driver(this->menu, REQ_DOWN_ITEM); */
+	/* 		break; */
+	/* 	case player1_controls.interact: */
+	/* 	case player2_controls.interact: */
+	/* 		{ */
+	/* 			ITEM* curitem; */
+	/* 			void (*callback)(WINDOW*); */
+
+	/* 			curitem = current_item(this->menu); */
+	/* 			callback = (void(*)(WINDOW*))item_userptr(curitem); */
+	/* 			callback(this->win); */
+	/* 		} */
+	/* 		break; */
+	/* } */
+
+	#undef ctr1
+	#undef ctr2
 
 }
 
@@ -125,7 +134,11 @@ GameScreen::GameScreen(int h, int w, int y, int x, std::string filepath)
 void
 GameScreen::update(void)
 {
-
+	for (Entity* entity : this->level->entities) {
+		entity->update(this->level);
+	}
+	this->level->red_player->update(this->level);
+	this->level->blue_player->update(this->level);
 }
 
 void
@@ -139,26 +152,29 @@ GameScreen::render(void)
 			char display_char = '?';
 
 			switch (grid[i][j]) {
+				case ' ':
+					display_char= ' ';
+					break;
 				case '#':
 					display_char = ' ';
 					wattron(this->win, COLOR_PAIR(term_wall));
 					break;
 				case '~':
-					display_char = 'W';
+					display_char = ' ';
 					wattron(this->win, COLOR_PAIR(term_water));
 					wattron(this->win, A_BOLD);
 					break;
 				case '^':
-					display_char = 'L';
+					display_char = ' ';
 					wattron(this->win, COLOR_PAIR(term_lava));
 					wattron(this->win, A_BOLD);
 					break;
 				case '!':
-					display_char = 'P';
+					display_char = ' ';
 					wattron(this->win, COLOR_PAIR(term_poison));
 					wattron(this->win, A_BOLD);
 					break;
-				case ' ':
+				default:
 					continue;
 			}
 
@@ -171,7 +187,8 @@ GameScreen::render(void)
 	for (Entity* entity : this->level->entities) {
 		entity->draw(this->win);
 	}
-	/* this->level->; */	
+	this->level->red_player->draw(this->win);
+	this->level->blue_player->draw(this->win);
 
 	/* render ui */
 	wclear(this->ui_win);

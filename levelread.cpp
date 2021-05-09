@@ -126,7 +126,14 @@ void Level::parseFile(std::string filename) {
                     {
                         red_spawn_x = i;
                         red_spawn_y = j;
-                        Player* red_player = new Player(i, j, ColouredEntity::RED);
+						/* PlayerControls player1_controls = { */
+						/* 	.move_up = PLAYER_1_UP, */
+						/* 	.move_down = PLAYER_1_DOWN, */
+						/* 	.move_left = PLAYER_1_LEFT, */
+						/* 	.move_right = PLAYER_1_RIGHT, */
+						/* 	.interact = PLAYER_1_INTERACT, */
+						/* }; */
+                        Player* red_player = new Player(i, j, ColouredEntity::RED, player1_controls);
                         this->red_player = red_player;
                         break;
                     }
@@ -135,7 +142,14 @@ void Level::parseFile(std::string filename) {
                     {
                         blue_spawn_x = i;
                         blue_spawn_y = j;
-                        Player* blue_player = new Player(i, j, ColouredEntity::BLUE);
+						/* PlayerControls player2_controls = { */
+						/* 	.move_up = PLAYER_2_UP, */
+						/* 	.move_down = PLAYER_2_DOWN, */
+						/* 	.move_left = PLAYER_2_LEFT, */
+						/* 	.move_right = PLAYER_2_RIGHT, */
+						/* 	.interact = PLAYER_2_INTERACT, */
+						/* }; */
+                        Player* blue_player = new Player(i, j, ColouredEntity::BLUE, player2_controls);
                         this->blue_player = blue_player;
                         break;
                     }
