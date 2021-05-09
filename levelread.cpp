@@ -19,6 +19,24 @@ void Level::draw() {
     }
 }
 
+char**
+Level::getGrid() const
+{
+	return this->grid;
+}
+
+int
+Level::getLength() const
+{
+	return this->length;
+}
+
+int
+Level::getHeight() const
+{
+	return this->height;
+}
+
 
 void Level::parseFile(std::string filename) {
     std::ifstream file(filename);

@@ -15,6 +15,7 @@ class Level {
 		~Level();
 		void draw();
         char** getGrid() const;
+<<<<<<< HEAD
 		void update();
 		void remove_red_gem();
 		void remove_blue_gem();
@@ -22,6 +23,10 @@ class Level {
 		Player* blue_player;
 		std::vector<Block*> blocks;
 
+=======
+		int getLength() const;
+		int getHeight() const;
+>>>>>>> 594db21bb6e24c50a00d99cfc73f4104241ae6cc
 	private:
 		char** grid;
         int time; 

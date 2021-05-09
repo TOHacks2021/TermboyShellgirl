@@ -41,6 +41,7 @@ class GameScreen : public Screen {
 		void render(void) override;
 	private:
 		Level* level;
+		WINDOW* ui_win;
 };
 
 

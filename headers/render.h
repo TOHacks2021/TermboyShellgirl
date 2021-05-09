@@ -23,7 +23,11 @@ class Renderer {
 
 enum TermColors {
 	term_blue = 1,
-	term_red
+	term_red,
+	term_water,
+	term_lava,
+	term_poison,
+	term_wall
 };
 
 extern void curses_init(void);

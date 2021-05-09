@@ -91,9 +91,10 @@ MainScreen::render(void)
 void
 play_button(WINDOW* win)
 {
-	/* mvwprintw(win, 10, 10, "play"); */
-	/* wrefresh(win); */
-	(Renderer::renderer)->switch_screen(new GameScreen(200, 200, 0, 0, "levels/level1"));
+	int scr_h, scr_w;
+	getmaxyx(stdscr, scr_h, scr_w);
+
+	(Renderer::renderer)->switch_screen(new GameScreen(scr_h, scr_w, 0, 0, "levels/level1"));
 }
 
 void
@@ -115,6 +116,10 @@ GameScreen::GameScreen(int h, int w, int y, int x, std::string filepath)
 : Screen(h, w, y, x)
 {
 	this->level = new Level(filepath);
+
+	this->ui_win = derwin(this->win, UI_HEIGHT, w-2*UI_PADDING, h-UI_HEIGHT-UI_PADDING, UI_PADDING);
+	wrefresh(this->win);
+	refresh();
 }
 
 void
@@ -126,9 +131,51 @@ GameScreen::update(void)
 void
 GameScreen::render(void)
 {
+	char** grid = this->level->getGrid();
+
+	for (int i = 0; i < this->level->getLength(); i++) {
+		for (int j = 0; j < this->level->getHeight(); j++) {
+
+			char display_char = '?';
+
+			switch (grid[i][j]) {
+				case '#':
+					display_char = ' ';
+					wattron(this->win, COLOR_PAIR(term_wall));
+					break;
+				case '~':
+					display_char = 'W';
+					wattron(this->win, COLOR_PAIR(term_water));
+					wattron(this->win, A_BOLD);
+					break;
+				case '^':
+					display_char = 'L';
+					wattron(this->win, COLOR_PAIR(term_lava));
+					wattron(this->win, A_BOLD);
+					break;
+				case '!':
+					display_char = 'P';
+					wattron(this->win, COLOR_PAIR(term_poison));
+					wattron(this->win, A_BOLD);
+					break;
+				case ' ':
+					continue;
+			}
+
+			char str[2] = {display_char, '\0'};
+			mvwprintw(this->win, j, i, str);
+			wattrset(this->win, 0);
+		}
+	}
+
 	for (Entity* entity : this->level->entities) {
 		entity->draw(this->win);
 	}
+
+	/* render ui */
+	wclear(this->ui_win);
+	box(this->ui_win, 0 ,0);
+	mvwprintw(this->ui_win, 0, 0, "stats");
 	wrefresh(this->win);
 }
 

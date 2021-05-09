@@ -37,6 +37,8 @@ constexpr LevelTiles tiles = {
 
 };
 
+#define UI_HEIGHT 7
+#define UI_PADDING 1
 
 
 #endif // __CONFIG_H__
