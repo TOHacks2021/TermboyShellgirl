@@ -10,11 +10,11 @@ main(int argc, char** argv)
 
 	curses_init();
 
-	Renderer renderer(new MainScreen(40, 40, 0, 0));
+	Renderer::init_renderer(new MainScreen(40, 40, 0, 0));
 
-	renderer.render_screen();
 	while (1) {
-		renderer.update_screen();
+		(Renderer::renderer)->render_screen();
+		(Renderer::renderer)->update_screen();
 	}
 
 	curses_exit();

@@ -91,8 +91,9 @@ MainScreen::render(void)
 void
 play_button(WINDOW* win)
 {
-	mvwprintw(win, 10, 10, "play");
-	wrefresh(win);
+	/* mvwprintw(win, 10, 10, "play"); */
+	/* wrefresh(win); */
+	(Renderer::renderer)->switch_screen(new GameScreen(40, 40, 0, 0));
 }
 
 void
@@ -107,5 +108,25 @@ quit_button(WINDOW* win)
 {
 	mvwprintw(win, 10, 10, "quit");
 	wrefresh(win);
+}
+
+/* game screen */
+GameScreen::GameScreen(int h, int w, int y, int x)
+: Screen(h, w, y, x)
+{
+
+}
+
+void
+GameScreen::update(void)
+{
+
+}
+
+void
+GameScreen::render(void)
+{
+	mvwprintw(this->win, 0, 0, "game screen");
+	wrefresh(this->win);
 }
 
