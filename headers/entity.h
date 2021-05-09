@@ -44,9 +44,15 @@ class Player: public ColouredEntity {
         Player(int x, int y, char color, PlayerControls controls);
         void draw(WINDOW* win) override;
 		void update(Level* level) override;
-		/* void moveLeft(void); */
-		/* void moveRight(void); */
+		void moveLeft(Level* level);
+		void moveRight(Level* level);
+		void moveVertical(Level* level);
+		void startJump(Level* level);
+		void applyJump(Level* level);
 	private:
+		bool gravStep;
+		bool isJumping;
+		int jumpDistance;
 		PlayerControls controls;
 };
 

@@ -25,6 +25,9 @@ Player::Player(int x, int y, char color, PlayerControls controls)
 : ColouredEntity(x, y, color)
 {
 	this->controls = controls;
+	this->gravStep = false;
+	this->isJumping = false;
+	this->jumpDistance = 0;
 }
 
 void
@@ -43,8 +46,10 @@ Player::draw(WINDOW* win)
 	wattrset(win, 0);
 }
 
-void Player::update(Level* level)
+void
+Player::update(Level* level)
 {
+	if (this->getColor() == ColouredEntity::RED) return;
 	int c;
 	PlayerControls ctr = this->controls;
 
@@ -52,10 +57,71 @@ void Player::update(Level* level)
 
 	c = getch();
 	if (c == ctr.move_left) {
-		this->x -= 1;
-	} else if (c == ctr.move_right) {
-		this->x += 1;
+		this->moveLeft(level);
+	} if (c == ctr.move_right) {
+		this->moveRight(level);
+	} if (c == ctr.move_up && false == this->isJumping) {
+		this->isJumping = true;
+		this->jumpDistance = PLAYER_JUMP_HEIGHT;
 	}
+
+	this->moveVertical(level);
+
+}
+
+/* hardcoded wall blocks :< */
+void
+Player::moveLeft(Level* level)
+{
+	if (this->x <= 0) return;	
+	if (level->getGrid()[this->x-1][this->y] == '#') return;
+	if (level->getGrid()[this->x-1][this->y-1] == '#') return;
+	this->x -= 1;
+}
+
+void
+Player::moveRight(Level* level)
+{
+	if (this->x >= level->getLength()-1) return;
+	if (level->getGrid()[this->x+1][this->y] == '#') return;
+	if (level->getGrid()[this->x+1][this->y-1] == '#') return;
+	this->x += 1;
+}
+
+void
+Player::moveVertical(Level* level)
+{ 	
+	/* apply 'gravity' */
+	if (0 >= this->jumpDistance && level->getGrid()[this->x][this->y+1] == ' ') {
+		this->gravStep = !gravStep;
+		if (gravStep) this->y += 1;
+	}
+
+	/* hit head on ceiling */
+	if (level->getGrid()[this->x][this->y-1] != ' ') {
+		this->jumpDistance = 0;
+	}
+
+	/* move up for jump */
+	if (this->jumpDistance != 0) {
+		this->gravStep = !gravStep;
+		if (gravStep) {
+			this->y -= 1;
+			this->jumpDistance -= 1;
+		}
+	}
+
+	/* reset jump if on group */
+	if (level->getGrid()[this->x][this->y+1] != ' ')
+		this->isJumping = false;
+}
+
+void
+Player::startJump(Level* level)
+{
+	if (true == this->isJumping) return;
+	this->isJumping = true;
+	this->jumpDistance = PLAYER_JUMP_HEIGHT;
 }
 
 ColouredEntity::ColouredEntity(int x, int y, char color) : Entity(x, y) { 

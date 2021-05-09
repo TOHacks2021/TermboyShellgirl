@@ -15,6 +15,8 @@
 /* #define PLAYER_2_RIGHT 'l' */
 /* #define PLAYER_2_INTERACT 'i' */
 
+#define PLAYER_JUMP_HEIGHT 3
+
 const PlayerControls player1_controls = {
 	.move_up = 'w',
 	.move_down = 's',
