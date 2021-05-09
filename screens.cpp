@@ -91,9 +91,10 @@ MainScreen::render(void)
 void
 play_button(WINDOW* win)
 {
-	/* mvwprintw(win, 10, 10, "play"); */
-	/* wrefresh(win); */
-	(Renderer::renderer)->switch_screen(new GameScreen(200, 200, 0, 0, "levels/level1"));
+	int scr_h, scr_w;
+	getmaxyx(stdscr, scr_h, scr_w);
+
+	(Renderer::renderer)->switch_screen(new GameScreen(scr_h, scr_w, 0, 0, "levels/level1"));
 }
 
 void
@@ -115,6 +116,10 @@ GameScreen::GameScreen(int h, int w, int y, int x, std::string filepath)
 : Screen(h, w, y, x)
 {
 	this->level = new Level(filepath);
+
+	this->ui_win = derwin(this->win, UI_HEIGHT, w-2*UI_PADDING, h-UI_HEIGHT-UI_PADDING, UI_PADDING);
+	wrefresh(this->win);
+	refresh();
 }
 
 void
@@ -166,6 +171,11 @@ GameScreen::render(void)
 	for (Entity* entity : this->level->entities) {
 		entity->draw(this->win);
 	}
+
+	/* render ui */
+	wclear(this->ui_win);
+	box(this->ui_win, 0 ,0);
+	mvwprintw(this->ui_win, 0, 0, "stats");
 	wrefresh(this->win);
 }
 

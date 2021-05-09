@@ -10,7 +10,10 @@ main(int argc, char** argv)
 
 	curses_init();
 
-	Renderer::init_renderer(new MainScreen(40, 40, 0, 0));
+	int scr_h, scr_w;
+	getmaxyx(stdscr, scr_h, scr_w);
+
+	Renderer::init_renderer(new MainScreen(scr_h, scr_w, 0, 0));
 
 	while (1) {
 		(Renderer::renderer)->render_screen();
