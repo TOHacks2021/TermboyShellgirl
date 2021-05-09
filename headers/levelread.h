@@ -26,6 +26,8 @@ class Level {
         int red_gems_remaining, blue_gems_remaining;
 		std::string filename;
 		std::vector<Block*> blocks;
+		Exit* red_exit;
+		Exit* blue_exit;
 
 	private:
 		char** grid;

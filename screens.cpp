@@ -133,6 +133,23 @@ GameScreen::update(void)
 	}
 	this->level->red_player->update(this->level);
 	this->level->blue_player->update(this->level);
+	for (Block* block: this->level->blocks) {
+		block->update(this->level);
+	}
+	this->level->red_exit->update(this->level);
+	this->level->blue_exit->update(this->level);
+
+	/* check level win condition */
+	if (
+		this->level->red_player->getX() == this->level->red_exit->getX() &&
+		this->level->red_player->getY() == this->level->red_exit->getY() &&
+		this->level->blue_player->getX() == this->level->blue_exit->getX() &&
+		this->level->blue_player->getY() == this->level->blue_exit->getY()
+	) {
+		/* completed level */	
+		curses_exit();
+		exit(1);
+	}
 }
 
 void
@@ -185,6 +202,11 @@ GameScreen::render(void)
 	}
 	this->level->red_player->draw(this->win);
 	this->level->blue_player->draw(this->win);
+	for (Block* block: this->level->blocks) {
+		block->draw(this->win);
+	}
+	this->level->red_exit->draw(this->win);
+	this->level->blue_exit->draw(this->win);
 
 	/* render ui */
 	wclear(this->ui_win);
