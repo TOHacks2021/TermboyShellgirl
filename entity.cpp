@@ -37,8 +37,10 @@ Gem::draw(WINDOW* win)
 {
 	int hlcolor = COLOR_PAIR((ColouredEntity::RED == this->getColor()) ?  term_red : term_blue);
 	wattron(win, hlcolor);
+	wattron(win, A_BOLD);
 	mvwprintw(win, this->y, this->x, "$");
 	wattroff(win, hlcolor);
+	wattroff(win, A_BOLD);
 }
 
 PressurePlate::PressurePlate(int x, int y, char id) : Entity(x, y) { 
@@ -97,15 +99,15 @@ Exit::draw(WINDOW* win)
 
 	switch (this->getColor()) {
 		case ColouredEntity::RED:
-			door_char = "]";
+			door_char = "[";
 			break;
 		case ColouredEntity::BLUE:
-			door_char = "[";
+			door_char = "]";
 			break;
 	}
 	/* careful not to print off the screen */
-	mvwprintw(win, this->y, this->x, door_char);
 	mvwprintw(win, this->y-1, this->x, door_char);
+	mvwprintw(win, this->y, this->x, door_char);
 }
 
 Door::Door(int x, int y, char id, char type) : Entity(x, y) {

@@ -19,6 +19,24 @@ void Level::draw() {
     }
 }
 
+char**
+Level::getGrid() const
+{
+	return this->grid;
+}
+
+int
+Level::getLength() const
+{
+	return this->length;
+}
+
+int
+Level::getHeight() const
+{
+	return this->height;
+}
+
 
 void Level::parseFile(std::string filename) {
     std::ifstream file(filename);
@@ -121,14 +139,14 @@ void Level::parseFile(std::string filename) {
                     case tiles.red_exit:
                     {
                 
-                        entities.push(new Exit{i, j, ColouredEntity::RED});
+                        entities.push_back(new Exit{i, j, ColouredEntity::RED});
                         break;
                     }
 
                     case tiles.blue_exit:
                     {
                  
-                        entities.push(new Exit{i, j, ColouredEntity::BLUE});
+                        entities.push_back(new Exit{i, j, ColouredEntity::BLUE});
                         break;
                     }
 

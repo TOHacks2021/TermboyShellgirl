@@ -126,6 +126,43 @@ GameScreen::update(void)
 void
 GameScreen::render(void)
 {
+	char** grid = this->level->getGrid();
+
+	for (int i = 0; i < this->level->getLength(); i++) {
+		for (int j = 0; j < this->level->getHeight(); j++) {
+
+			char display_char = '?';
+
+			switch (grid[i][j]) {
+				case '#':
+					display_char = ' ';
+					wattron(this->win, COLOR_PAIR(term_wall));
+					break;
+				case '~':
+					display_char = 'W';
+					wattron(this->win, COLOR_PAIR(term_water));
+					wattron(this->win, A_BOLD);
+					break;
+				case '^':
+					display_char = 'L';
+					wattron(this->win, COLOR_PAIR(term_lava));
+					wattron(this->win, A_BOLD);
+					break;
+				case '!':
+					display_char = 'P';
+					wattron(this->win, COLOR_PAIR(term_poison));
+					wattron(this->win, A_BOLD);
+					break;
+				case ' ':
+					continue;
+			}
+
+			char str[2] = {display_char, '\0'};
+			mvwprintw(this->win, j, i, str);
+			wattrset(this->win, 0);
+		}
+	}
+
 	for (Entity* entity : this->level->entities) {
 		entity->draw(this->win);
 	}

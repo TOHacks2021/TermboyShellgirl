@@ -15,6 +15,8 @@ class Level {
 		~Level();
 		void draw();
         char** getGrid() const;
+		int getLength() const;
+		int getHeight() const;
 	private:
 		char** grid;
         int time; 
