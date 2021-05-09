@@ -68,9 +68,9 @@ class Gem: public ColouredEntity {
 		void update(Level* level) override;
 };
 
-class PressurePlate: public Entity {
+class ControlEntity: public Entity {
 	public:
-		PressurePlate(int x, int y, char id);
+		ControlEntity(int x, int y, char id);
 		void draw(WINDOW* win) override;
 		void update(Level* level) override;
 
@@ -81,20 +81,21 @@ class PressurePlate: public Entity {
 	private:
 		char id;
 		bool active = false;
+
 };
 
-class Switch: public Entity {
+class PressurePlate: public ControlEntity {
+	public:
+		PressurePlate(int x, int y, char id);
+		void draw(WINDOW* win) override;
+		void update(Level* level) override;
+};
+
+class Switch: public ControlEntity {
 	public:
 		Switch(int x, int y, char id);
 		void draw(WINDOW* win) override;
 		void update(Level* level) override;
-
-		char getId() const;
-		bool getActive() const;
-		void setActive(bool active);
-	private:
-		char id;
-		bool active = false;
 };
 
 class Block: public Entity {
@@ -111,32 +112,38 @@ class Exit: public ColouredEntity {
 		void update(Level* level) override;
 };
 
+#define DOOR_LENGTH 8
+
 class Door: public Entity {
 	public:
-		Door(int x, int y, char id, char type);
+		Door(int x, int y, char id, char type, char dir, int max_dist);
 		void draw(WINDOW* win) override;
 		void update(Level* level) override;
 
 		char getId() const;
 		char getType() const;
 		char getDir() const;
-		int getDist() const;
+		int getMaxDist() const;
+		bool getActivated();
+		void setController(ControlEntity* controller);
 
 		static const char C_L = '0';
 		static const char C_U = '1';
 		static const char C_R = '2';
 		static const char C_D = '3';
 
-		static const char M_L = '0';
-		static const char M_U = '1';
-		static const char M_R = '2';
-		static const char M_D = '3';
+		static const char M_L = '4';
+		static const char M_U = '5';
+		static const char M_R = '6';
+		static const char M_D = '7';
 
 	private:
 		char id;
 		char type;
 		char dir;
-		int dist;
+		int max_dist;
+		int cur_dist;
+		ControlEntity* controller;
 };
 
 

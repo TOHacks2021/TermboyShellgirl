@@ -5,6 +5,8 @@
 #include "headers/config.h"
 #include "headers/entity.h"
 
+const char getDoorDir(std::vector<std::string> lines, int x, int y);
+
 Level::~Level() {}
 Level::Level(std::string filename) {
 	this->filename = filename;
@@ -64,6 +66,8 @@ void Level::parseFile(std::string filename) {
     const std::string C_R = "MNOPQRS";
     const std::string C_D = "TUVWXYZ";
 
+	const int temp_max_dist_change_later = 4;
+
     for (int i = 0; i < length; i++) {
         for (int j = 0; j < height; j++) {
             char c = lines.at(j).at(i);
@@ -71,19 +75,19 @@ void Level::parseFile(std::string filename) {
                 grid[i][j] = tiles.wall;
             }
             else if (C_L.find(c) != std::string::npos) {
-                Door* door = new Door{i, j, c, Door::C_L};
+                Door* door = new Door{i, j, c, Door::C_L, getDoorDir(lines, i, j), temp_max_dist_change_later};
                 doors.push_back(door);
             }
             else if (C_U.find(c) != std::string::npos) {
-                Door* door = new Door{i, j, c, Door::C_U};
+                Door* door = new Door{i, j, c, Door::C_U, getDoorDir(lines, i, j), temp_max_dist_change_later};
                 doors.push_back(door);
             }
             else if (C_R.find(c) != std::string::npos) {
-                Door* door = new Door{i, j, c, Door::C_R};
+                Door* door = new Door{i, j, c, Door::C_R, getDoorDir(lines, i, j), temp_max_dist_change_later};
                 doors.push_back(door);
             }   
             else if (C_D.find(c) != std::string::npos) {
-                Door* door = new Door{i, j, c, Door::C_D};
+                Door* door = new Door{i, j, c, Door::C_D, getDoorDir(lines, i, j), temp_max_dist_change_later};
                 doors.push_back(door);
             }
             else {
@@ -181,6 +185,16 @@ void Level::parseFile(std::string filename) {
             }
         }
     }
+}
+
+const char
+getDoorDir(std::vector<std::string> lines, int x, int y)
+{
+	if (lines.at(y).at(x+1) == '-') return Door::M_R;
+	if (lines.at(y-1).at(x) == '|') return Door::M_U;
+	if (lines.at(6).at(x-1) == '-') return Door::M_L;
+	if (lines.at(y+1).at(x) == '|') return Door::M_D;
+	fprintf(stderr, "u got issues with yo doors bro,\n");
 }
 
 void Level::remove_blue_gem() {

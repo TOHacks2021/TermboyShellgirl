@@ -195,25 +195,32 @@ void Gem::update(Level* level) {
     }
 }
 
-PressurePlate::PressurePlate(int x, int y, char id) : Entity(x, y) { 
-    this->id = id;
+ControlEntity::ControlEntity(int x, int y, char id)
+: Entity(x, y)
+{
+	this->id = id;
 }
+
+bool ControlEntity::getActive() const {
+    return active;
+}
+char ControlEntity::getId() const {
+    return id;
+}
+void ControlEntity::setActive(bool a) {
+    active = a;
+}
+
+void ControlEntity::draw(WINDOW* win) { }
+void ControlEntity::update(Level* level) { }
+
+PressurePlate::PressurePlate(int x, int y, char id) : ControlEntity(x, y, id) { }
 
 void
 PressurePlate::draw(WINDOW* win)
 { 
 	mvwprintw(win, this->y, this->x, "=");
 }
-bool PressurePlate::getActive() const {
-    return active;
-}
-char PressurePlate::getId() const {
-    return id;
-}
-void PressurePlate::setActive(bool a) {
-    active = a;
-}
-
 void PressurePlate::update(Level* level) {
     bool isPressed = false;
     if (level->red_player->getX() == this->getX() && level->red_player->getY() == this->getY()) {
@@ -230,24 +237,12 @@ void PressurePlate::update(Level* level) {
     this->setActive(isPressed);
 }
 
-Switch::Switch(int x, int y, char id) : Entity(x, y) { 
-    this->id = id;
-}
+Switch::Switch(int x, int y, char id) : ControlEntity(x, y, id) { }
 
 void
 Switch::draw(WINDOW* win)
 {
 	mvwprintw(win, this->y, this->x, this->getActive() ? "\\" : "/");
-}
-
-bool Switch::getActive() const {
-    return active;
-}
-char Switch::getId() const {
-    return id;
-}
-void Switch::setActive(bool a) {
-    active = a;
 }
 
 void Switch::update(Level* level) {
@@ -289,17 +284,91 @@ Exit::draw(WINDOW* win)
 
 }
 
-void Exit::update(Level* level) {
-    
+void
+Exit::update(Level* level)
+{
+
 }
 
-Door::Door(int x, int y, char id, char type) : Entity(x, y) {
+Door::Door(int x, int y, char id, char type, char dir, int max_dist) : Entity(x, y) {
     this->id = id;
     this->type = type;
+	this->dir = dir;
+	this->max_dist = max_dist;
+	this->cur_dist = 0;
+	this->controller = nullptr;
 }
-void Door::draw(WINDOW* win) { }
 
-void Door::update(Level* level) {
-    
+void
+Door::draw(WINDOW* win)
+{
+	switch (this->type) {
+		case Door::C_L:
+			for (int i = 0; i < DOOR_LENGTH; i++)
+				mvwprintw(win, this->getY(), this->getX()+i, "@");
+			break;
+		case Door::C_U:
+			for (int i = 0; i < DOOR_LENGTH; i++)
+				mvwprintw(win, this->getY()-i, this->getX(), "@");
+			break;
+		case Door::C_R:
+			for (int i = 0; i < DOOR_LENGTH; i++)
+				mvwprintw(win, this->getY(), this->getX()-i, "@");
+			break;
+		case Door::C_D:
+			for (int i = 0; i < DOOR_LENGTH; i++)
+				mvwprintw(win, this->getY()+i, this->getX(), "@");
+			break;
+	}
+}
+
+void
+Door::update(Level* level)
+{
+	if (
+		(this->getActivated() && this->cur_dist < this->max_dist) ||
+		(!this->getActivated() && this->cur_dist > 0)
+	) {
+
+		int direct_mult = this->getActivated() ? 1 : -1;
+		this->cur_dist += direct_mult;
+
+		switch (this->dir) {
+			case Door::M_L:
+				this->setPos(this->x-direct_mult, this->y);
+				break;
+			case Door::M_U:
+				this->setPos(this->x, this->y-direct_mult);
+				break;
+			case Door::M_R:
+				this->setPos(this->x+direct_mult, this->y);
+				break;
+			case Door::M_D:
+				this->setPos(this->x, this->y+direct_mult);
+				break;
+			default:
+				fprintf(stderr, "invlid dir enum");
+		}
+
+	}
+}
+
+char Door::getId() const { return this->id; }
+char Door::getType() const { return this->type; }
+char Door::getDir() const { return this->dir; }
+int Door::getMaxDist() const { return this->max_dist; }
+
+bool
+Door::getActivated()
+{
+	if (nullptr == this->controller) return false;
+
+	return this->controller->getActive();
+}
+
+void
+Door::setController(ControlEntity* controller)
+{
+	this->controller = controller; 
 }
 
