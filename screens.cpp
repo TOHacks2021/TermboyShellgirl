@@ -129,6 +129,7 @@ GameScreen::render(void)
 	for (auto entity : this->level->entities) {
 		entity.draw(this->win);
 	}
+	mvwprintw(this->win, 10, 10, "%d", this->level->entities.size());
 	wrefresh(this->win);
 }
 
