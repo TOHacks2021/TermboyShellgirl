@@ -11,6 +11,7 @@ Entity::Entity(int x, int y) {
     this->x = x;
     this->y = y;
 }
+void Entity::update(Level* level) { }
 
 int Entity::getX() const {
     return x;
@@ -22,6 +23,10 @@ int Entity::getY() const {
 
 Player::Player(int x, int y, char color) : ColouredEntity(x, y, color) { }
 void Player::draw(WINDOW* win) { }
+
+void Player::update(Level* level) {
+
+}
 
 ColouredEntity::ColouredEntity(int x, int y, char color) : Entity(x, y) { 
     this->color = color;
@@ -41,6 +46,37 @@ Gem::draw(WINDOW* win)
 	wattroff(win, hlcolor);
 }
 
+void Gem::update(Level* level) {
+    int pos = -1;
+    bool del = false;
+
+    if (this->getColor() == ColouredEntity::RED && level->red_player->getX() == this->getX()
+     && (level->red_player->getY() == this->getY() || level->red_player->getY() + 1 == this->getY())) {
+         level->remove_red_gem();
+         del = true;
+    }
+
+    else if (this->getColor() == ColouredEntity::BLUE && level->blue_player->getX() == this->getX()
+     && (level->blue_player->getY() == this->getY() || level->blue_player->getY() + 1 == this->getY())) {
+         level->remove_blue_gem();
+         del = true;
+    }
+    
+
+
+    for (int i = 0; i < level->entities.size(); i++) {
+        Entity* e = level->entities.at(i);
+
+        if (this == e) {
+            pos = i;
+        }
+    }
+
+    if (del) {
+        level->entities.erase(level->entities.begin()+pos);
+    }
+}
+
 PressurePlate::PressurePlate(int x, int y, char id) : Entity(x, y) { 
     this->id = id;
 }
@@ -58,6 +94,10 @@ char PressurePlate::getId() const {
 }
 void PressurePlate::setActive(bool a) {
     active = a;
+}
+
+void PressurePlate::update(Level* level) {
+    
 }
 
 Switch::Switch(int x, int y, char id) : Entity(x, y) { 
@@ -80,12 +120,19 @@ void Switch::setActive(bool a) {
     active = a;
 }
 
+void Switch::update(Level* level) {
+    
+}
+
 Block::Block(int x, int y) : Entity(x, y) { }
 
 void
 Block::draw(WINDOW* win)
 {
 	mvwprintw(win, this->y, this->x, "@");
+}
+void Block::update(Level* level) {
+
 }
 
 Exit::Exit(int x, int y, char color) : ColouredEntity(x, y, color) { }
@@ -108,9 +155,17 @@ Exit::draw(WINDOW* win)
 	mvwprintw(win, this->y-1, this->x, door_char);
 }
 
+void Exit::update(Level* level) {
+    
+}
+
 Door::Door(int x, int y, char id, char type) : Entity(x, y) {
     this->id = id;
     this->type = type;
 }
 void Door::draw(WINDOW* win) { }
+
+void Door::update(Level* level) {
+    
+}
 

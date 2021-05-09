@@ -108,6 +108,8 @@ void Level::parseFile(std::string filename) {
                     {
                         red_spawn_x = i;
                         red_spawn_y = j;
+                        Player* red_player = new Player(i, j, ColouredEntity::RED);
+                        this->red_player = red_player;
                         break;
                     }
 
@@ -115,20 +117,22 @@ void Level::parseFile(std::string filename) {
                     {
                         blue_spawn_x = i;
                         blue_spawn_y = j;
+                        Player* blue_player = new Player(i, j, ColouredEntity::BLUE);
+                        this->blue_player = blue_player;
                         break;
                     }
 
                     case tiles.red_exit:
                     {
                 
-                        entities.push(new Exit{i, j, ColouredEntity::RED});
+                        entities.push_back(new Exit{i, j, ColouredEntity::RED});
                         break;
                     }
 
                     case tiles.blue_exit:
                     {
                  
-                        entities.push(new Exit{i, j, ColouredEntity::BLUE});
+                        entities.push_back(new Exit{i, j, ColouredEntity::BLUE});
                         break;
                     }
 
@@ -151,11 +155,19 @@ void Level::parseFile(std::string filename) {
                     case tiles.block:
                     {
                         Block* block = new Block{i, j};
-                        entities.push_back(block);
+                        blocks.push_back(block);
                         break;
                     }
                 }
             }
         }
     }
+}
+
+void Level::remove_blue_gem() {
+    this->blue_gems_remaining--;
+}
+
+void Level::remove_red_gem() {
+    this->red_gems_remaining--;
 }

@@ -2,11 +2,13 @@
 #define __ENTITY_H__
 
 #include <ncurses.h>
+#include "levelread.h"
 
 class Entity {
 	public:
 		virtual ~Entity();
 		virtual void draw(WINDOW* win);
+		virtual void update(Level* level);
 
 		int getX() const;
 		int getY() const;
@@ -33,18 +35,21 @@ class Player: public ColouredEntity {
     public:
         Player(int x, int y, char color);
         void draw(WINDOW* win) override;
+		void update(Level* level) override;
 };
 
 class Gem: public ColouredEntity {
     public:
         Gem(int x, int y, char color);
         void draw(WINDOW* win) override;
+		void update(Level* level) override;
 };
 
 class PressurePlate: public Entity {
 	public:
 		PressurePlate(int x, int y, char id);
 		void draw(WINDOW* win) override;
+		void update(Level* level) override;
 
 		char getId() const;
 		bool getActive() const;
@@ -59,6 +64,7 @@ class Switch: public Entity {
 	public:
 		Switch(int x, int y, char id);
 		void draw(WINDOW* win) override;
+		void update(Level* level) override;
 
 		char getId() const;
 		bool getActive() const;
@@ -72,18 +78,21 @@ class Block: public Entity {
 	public:
 		Block(int x, int y);
 		void draw(WINDOW* win) override;
+		void update(Level* level) override;
 };
 
 class Exit: public ColouredEntity {
 	public:
 		Exit(int x, int y, char color);
 		void draw(WINDOW* win) override;
+		void update(Level* level) override;
 };
 
 class Door: public Entity {
 	public:
 		Door(int x, int y, char id, char type);
 		void draw(WINDOW* win) override;
+		void update(Level* level) override;
 
 		char getId() const;
 		char getType() const;
