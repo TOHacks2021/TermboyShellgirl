@@ -26,6 +26,7 @@ class Level {
         int red_gems_remaining, blue_gems_remaining;
 		std::string filename;
 		std::vector<Block*> blocks;
+		std::vector<ControlEntity*> controllers;
 		Exit* red_exit;
 		Exit* blue_exit;
 		std::vector<Door*> doors;

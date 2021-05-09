@@ -1,6 +1,18 @@
 #ifndef __ENTITY_H__
 #define __ENTITY_H__
 
+class Enitity;
+class ColouredEntity;
+class Player;
+class Gem;
+class ControlEntity;
+class PressurePlate;
+class Switch;
+class Block;
+class Exit;
+class Door;
+
+
 #include <ncurses.h>
 #include "levelread.h"
 
@@ -80,7 +92,7 @@ class ControlEntity: public Entity {
 	
 	private:
 		char id;
-		bool active = false;
+		bool active;
 
 };
 
@@ -124,8 +136,7 @@ class Door: public Entity {
 		char getType() const;
 		char getDir() const;
 		int getMaxDist() const;
-		bool getActivated();
-		void setController(ControlEntity* controller);
+		bool getActivated(Level* level);
 
 		static const char C_L = '0';
 		static const char C_U = '1';
@@ -143,7 +154,6 @@ class Door: public Entity {
 		char dir;
 		int max_dist;
 		int cur_dist;
-		ControlEntity* controller;
 };
 
 

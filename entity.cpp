@@ -4,6 +4,7 @@
 
 #include "headers/render.h"
 #include "headers/entity.h"
+#include "headers/levelread.h"
 
 char Player::active_color = ColouredEntity::RED;
 
@@ -199,6 +200,7 @@ ControlEntity::ControlEntity(int x, int y, char id)
 : Entity(x, y)
 {
 	this->id = id;
+	this->active = false;
 }
 
 bool ControlEntity::getActive() const {
@@ -296,7 +298,6 @@ Door::Door(int x, int y, char id, char type, char dir, int max_dist) : Entity(x,
 	this->dir = dir;
 	this->max_dist = max_dist;
 	this->cur_dist = 0;
-	this->controller = nullptr;
 }
 
 void
@@ -326,11 +327,11 @@ void
 Door::update(Level* level)
 {
 	if (
-		(this->getActivated() && this->cur_dist < this->max_dist) ||
-		(!this->getActivated() && this->cur_dist > 0)
+		(this->getActivated(level) && this->cur_dist < this->max_dist) ||
+		(!this->getActivated(level) && this->cur_dist > 0)
 	) {
 
-		int direct_mult = this->getActivated() ? 1 : -1;
+		int direct_mult = this->getActivated(level) ? 1 : -1;
 		this->cur_dist += direct_mult;
 
 		switch (this->dir) {
@@ -359,16 +360,14 @@ char Door::getDir() const { return this->dir; }
 int Door::getMaxDist() const { return this->max_dist; }
 
 bool
-Door::getActivated()
+Door::getActivated(Level* level)
 {
-	if (nullptr == this->controller) return false;
-
-	return this->controller->getActive();
-}
-
-void
-Door::setController(ControlEntity* controller)
-{
-	this->controller = controller; 
+	for (ControlEntity* controller : level->controllers) {
+		/* printf("%c:%c ", this->getId(), controller->getId()); */
+		if (toupper(controller->getId() == this->getId())) {
+			return controller->getActive();
+		}
+	}
+	return false;
 }
 

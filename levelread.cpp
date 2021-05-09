@@ -6,6 +6,7 @@
 #include "headers/entity.h"
 
 const char getDoorDir(std::vector<std::string> lines, int x, int y);
+void bindControllerById(ControlEntity* controller, std::vector<Door*> doors, char id);
 
 Level::~Level() {}
 Level::Level(std::string filename) {
@@ -158,23 +159,20 @@ void Level::parseFile(std::string filename) {
                         this->blue_exit = new Exit(i, j, ColouredEntity::BLUE);
                         break;
                     }
-
-                    case tiles.pressure_plate:
-                    {
-                        char id = lines.at(j).at(i+1);
-                        PressurePlate* pressurePlate = new PressurePlate{i, j, id};
-                        entities.push_back(pressurePlate);
-                        break;
-                    }
-
-                    case tiles.sw:
-                    {
-                        char id = lines.at(j).at(i+1);
-                        Switch* sw = new Switch{i, j, id};
-                        entities.push_back(sw);
-                        break;
-                    }
-
+					case tiles.pressure_plate:
+					{
+						char id = lines.at(j+1).at(i);
+						PressurePlate* pressurePlate = new PressurePlate{i, j, id};
+						controllers.push_back(pressurePlate);
+						break;
+					}
+					case tiles.sw:
+					{
+						char id = lines.at(j+1).at(i);
+						Switch* sw = new Switch{i, j, id};
+						controllers.push_back(sw);
+						break;
+					}
                     case tiles.block:
                     {
                         Block* block = new Block{i, j};
@@ -185,7 +183,9 @@ void Level::parseFile(std::string filename) {
             }
         }
     }
+
 }
+
 
 const char
 getDoorDir(std::vector<std::string> lines, int x, int y)
@@ -196,6 +196,17 @@ getDoorDir(std::vector<std::string> lines, int x, int y)
 	if (lines.at(y+1).at(x) == '|') return Door::M_D;
 	fprintf(stderr, "u got issues with yo doors bro,\n");
 }
+
+/* void */
+/* bindControllerById(ControlEntity* controller, std::vector<Door*> doors, char id) */
+/* { */
+/* 	for (Door* door : doors) { */
+/* 		if (toupper(id) == door->getId()) { */
+/* 			door->setController(controller); */
+/* 			break; */
+/* 		} */
+/* 	} */
+/* } */
 
 void Level::remove_blue_gem() {
     this->blue_gems_remaining--;

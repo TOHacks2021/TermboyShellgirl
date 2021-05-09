@@ -134,6 +134,9 @@ GameScreen::update(void)
 	for (Door* door: this->level->doors) {
 		door->update(this->level);
 	}
+	for (ControlEntity* controller: this->level->controllers) {
+		controller->update(this->level);
+	}
 	this->level->red_player->update(this->level);
 	this->level->blue_player->update(this->level);
 	for (Block* block: this->level->blocks) {
@@ -205,6 +208,9 @@ GameScreen::render(void)
 	}
 	for (Door* door: this->level->doors) {
 		door->draw(this->win);
+	}
+	for (ControlEntity* controller: this->level->controllers) {
+		controller->draw(this->win);
 	}
 	this->level->red_player->draw(this->win);
 	this->level->blue_player->draw(this->win);
