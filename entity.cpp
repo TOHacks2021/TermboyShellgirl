@@ -215,7 +215,19 @@ void PressurePlate::setActive(bool a) {
 }
 
 void PressurePlate::update(Level* level) {
-    
+    bool isPressed = false;
+    if (level->red_player->getX() == this->getX() && level->red_player->getY() == this.getY()) {
+        isPressed = true;
+    }
+    if (level->blue_player->getX() == this->getX() && level->blue_player->getY() == this.getY()) {
+        isPressed = true;
+    }
+    for (Block* b: level->blocks) {
+        if (b->getX() == this->getX() && b->getY() == this.getY()) {
+            isPressed = true;
+        }
+    }
+    this->setActive(isPressed);
 }
 
 Switch::Switch(int x, int y, char id) : Entity(x, y) { 
