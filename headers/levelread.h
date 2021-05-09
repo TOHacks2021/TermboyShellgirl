@@ -28,6 +28,7 @@ class Level {
 		std::vector<Block*> blocks;
 		Exit* red_exit;
 		Exit* blue_exit;
+		std::vector<Door*> doors;
 
 	private:
 		char** grid;

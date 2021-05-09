@@ -59,10 +59,10 @@ void Level::parseFile(std::string filename) {
     }
 
     const std::string letters = "abcdefghijklmnopqrstuvwxyz";
-    const std::string LH = "ABCDEF";
-    const std::string RH = "GHIJKL";
-    const std::string LV = "MNOPQRS";
-    const std::string RV = "TUVWXYZ";
+    const std::string C_L = "ABCDEF";
+    const std::string C_U = "GHIJKL";
+    const std::string C_R = "MNOPQRS";
+    const std::string C_D = "TUVWXYZ";
 
     for (int i = 0; i < length; i++) {
         for (int j = 0; j < height; j++) {
@@ -70,20 +70,20 @@ void Level::parseFile(std::string filename) {
             if (c == tiles.wall || letters.find(c) != std::string::npos) {
                 grid[i][j] = tiles.wall;
             }
-            else if (LH.find(c) != std::string::npos) {
-                Door* door = new Door{i, j, c, Door::LH};
+            else if (C_L.find(c) != std::string::npos) {
+                Door* door = new Door{i, j, c, Door::C_L};
                 doors.push_back(door);
             }
-            else if (RH.find(c) != std::string::npos) {
-                Door* door = new Door{i, j, c, Door::RH};
+            else if (C_U.find(c) != std::string::npos) {
+                Door* door = new Door{i, j, c, Door::C_U};
                 doors.push_back(door);
             }
-            else if (LV.find(c) != std::string::npos) {
-                Door* door = new Door{i, j, c, Door::LV};
+            else if (C_R.find(c) != std::string::npos) {
+                Door* door = new Door{i, j, c, Door::C_R};
                 doors.push_back(door);
             }   
-            else if (RV.find(c) != std::string::npos) {
-                Door* door = new Door{i, j, c, Door::RV};
+            else if (C_D.find(c) != std::string::npos) {
+                Door* door = new Door{i, j, c, Door::C_D};
                 doors.push_back(door);
             }
             else {

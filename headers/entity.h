@@ -119,15 +119,24 @@ class Door: public Entity {
 
 		char getId() const;
 		char getType() const;
+		char getDir() const;
+		int getDist() const;
 
-		static const char LH = '0';
-		static const char RH = '1';
-		static const char LV = '2';
-		static const char RV = '3';
+		static const char C_L = '0';
+		static const char C_U = '1';
+		static const char C_R = '2';
+		static const char C_D = '3';
+
+		static const char M_L = '0';
+		static const char M_U = '1';
+		static const char M_R = '2';
+		static const char M_D = '3';
 
 	private:
 		char id;
 		char type;
+		char dir;
+		int dist;
 };
 
 
