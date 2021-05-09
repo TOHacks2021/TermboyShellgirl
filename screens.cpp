@@ -55,15 +55,12 @@ MainScreen::MainScreen(int h, int w, int y, int x)
 void
 MainScreen::update(void)
 {
-	#define ctr1 player1_controls
-	#define ctr2 player2_controls
+	/* int c; */
 
-	int c;
+	/* c = getch(); */
+	/* if (c == ctr1.move_up || c == ctr2.move_up) { */
 
-	c = getch();
-	if (c == ctr1.move_up || c == ctr2.move_up) {
-
-	}
+	/* } */
 	/* switch (c) { */
 	/* 	case player1_controls.move_up: */
 	/* 	case player2_controls.move_up: */
@@ -85,9 +82,6 @@ MainScreen::update(void)
 	/* 		} */
 	/* 		break; */
 	/* } */
-
-	#undef ctr1
-	#undef ctr2
 
 }
 

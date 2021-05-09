@@ -3,34 +3,15 @@
 
 #include "levelread.h"
 
-/* #define PLAYER_1_UP 'w' */
-/* #define PLAYER_1_DOWN 's' */
-/* #define PLAYER_1_LEFT 'a' */
-/* #define PLAYER_1_RIGHT 'd' */
-/* #define PLAYER_1_INTERACT 'e' */
+#define PLAYER_JUMP_HEIGHT 4
 
-/* #define PLAYER_2_UP 'k' */
-/* #define PLAYER_2_DOWN 'j' */
-/* #define PLAYER_2_LEFT 'h' */
-/* #define PLAYER_2_RIGHT 'l' */
-/* #define PLAYER_2_INTERACT 'i' */
-
-#define PLAYER_JUMP_HEIGHT 3
-
-const PlayerControls player1_controls = {
+const PlayerControls player_controls = {
 	.move_up = 'w',
 	.move_down = 's',
 	.move_left = 'a',
 	.move_right = 'd',
-	.interact = 'x'
-};
-
-const PlayerControls player2_controls = {
-	.move_up = 'k',
-	.move_down = 'j',
-	.move_left = 'h',
-	.move_right = 'l',
-	.interact = 'i'
+	.interact = 'x',
+	.switch_player = ' '
 };
 
 constexpr LevelTiles tiles = {
@@ -53,6 +34,5 @@ constexpr LevelTiles tiles = {
 
 #define UI_HEIGHT 7
 #define UI_PADDING 1
-
 
 #endif // __CONFIG_H__

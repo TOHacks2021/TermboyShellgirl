@@ -10,6 +10,7 @@ typedef struct PlayerControls {
 	char move_left;
 	char move_right;
 	char interact;	
+	char switch_player;
 } PlayerControls;
 
 class Entity {
@@ -41,7 +42,9 @@ class ColouredEntity: public Entity {
 
 class Player: public ColouredEntity {
     public:
-        Player(int x, int y, char color, PlayerControls controls);
+		static char active_color;
+
+        Player(int x, int y, char color);
         void draw(WINDOW* win) override;
 		void update(Level* level) override;
 		void moveLeft(Level* level);
@@ -53,7 +56,6 @@ class Player: public ColouredEntity {
 		bool gravStep;
 		bool isJumping;
 		int jumpDistance;
-		PlayerControls controls;
 };
 
 class Gem: public ColouredEntity {

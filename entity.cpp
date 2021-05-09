@@ -5,6 +5,8 @@
 #include "headers/render.h"
 #include "headers/entity.h"
 
+char Player::active_color = ColouredEntity::RED;
+
 Entity::~Entity() {}
 void Entity::draw(WINDOW* win) { }
 void Entity::update(Level* level) { }
@@ -21,11 +23,9 @@ int Entity::getY() const {
     return y;
 }
 
-Player::Player(int x, int y, char color, PlayerControls controls)
+Player::Player(int x, int y, char color)
 : ColouredEntity(x, y, color)
 {
-	this->controls = controls;
-	this->gravStep = false;
 	this->isJumping = false;
 	this->jumpDistance = 0;
 }
@@ -49,23 +49,26 @@ Player::draw(WINDOW* win)
 void
 Player::update(Level* level)
 {
-	if (this->getColor() == ColouredEntity::RED) return;
-	int c;
-	PlayerControls ctr = this->controls;
+	this->moveVertical(level);
 
-	timeout(100);
+	if (this->getColor() != Player::active_color) return;
+
+	int c;
+	PlayerControls ctr = player_controls;
+
+	timeout(200);
 
 	c = getch();
 	if (c == ctr.move_left) {
 		this->moveLeft(level);
-	} if (c == ctr.move_right) {
+	} else if (c == ctr.move_right) {
 		this->moveRight(level);
-	} if (c == ctr.move_up && false == this->isJumping) {
+	} else if (c == ctr.move_up && false == this->isJumping) {
 		this->isJumping = true;
 		this->jumpDistance = PLAYER_JUMP_HEIGHT;
+	} else if (c == ctr.switch_player) {
+		Player::active_color = (Player::active_color == ColouredEntity::RED) ? ColouredEntity::BLUE : ColouredEntity::RED;
 	}
-
-	this->moveVertical(level);
 
 }
 
@@ -93,8 +96,7 @@ Player::moveVertical(Level* level)
 { 	
 	/* apply 'gravity' */
 	if (0 >= this->jumpDistance && level->getGrid()[this->x][this->y+1] == ' ') {
-		this->gravStep = !gravStep;
-		if (gravStep) this->y += 1;
+		this->y += 1;
 	}
 
 	/* hit head on ceiling */
@@ -104,11 +106,8 @@ Player::moveVertical(Level* level)
 
 	/* move up for jump */
 	if (this->jumpDistance != 0) {
-		this->gravStep = !gravStep;
-		if (gravStep) {
-			this->y -= 1;
-			this->jumpDistance -= 1;
-		}
+		this->y -= 1;
+		this->jumpDistance -= 1;
 	}
 
 	/* reset jump if on group */
