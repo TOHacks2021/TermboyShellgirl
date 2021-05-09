@@ -9,10 +9,10 @@
 
 class Level {
 	public:
-		virtual ~Level();
-		virtual void draw();
-        char** getGrid() const;
 		Level(std::string filename);
+		~Level();
+		void draw();
+        char** getGrid() const;
 	private:
 		char** grid;
         int time; 

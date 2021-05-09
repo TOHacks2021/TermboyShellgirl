@@ -1,7 +1,10 @@
-#include "headers/option.h"
 
 #include <cstdio>
+#include <string>
 #include <getopt.h>
+
+#include "headers/levelread.h"
+#include "headers/option.h"
 
 typedef struct option option;
 
@@ -29,7 +32,12 @@ parseargs(int argc, char** argv)
 				printf("help option\n");
 				break;
 			case 'f':
-				printf("file option with value %s\n", optarg);
+				{
+					Level* level = new Level(std::string(optarg));
+					level->draw();
+					/* printf("file option with value %s\n", optarg); */
+
+				}
 				break;
 			case '?':
 				printf("invalid input\n");
