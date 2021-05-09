@@ -21,9 +21,13 @@ class Renderer {
 		Screen* screen;
 };
 
-/* Renderer* Renderer::renderer; */
+enum TermColors {
+	term_blue = 1,
+	term_red
+};
 
 extern void curses_init(void);
+extern void curses_colors(void);
 extern void curses_exit(void);
 
 #endif // __RENDER_H__

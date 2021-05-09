@@ -93,7 +93,7 @@ play_button(WINDOW* win)
 {
 	/* mvwprintw(win, 10, 10, "play"); */
 	/* wrefresh(win); */
-	(Renderer::renderer)->switch_screen(new GameScreen(40, 40, 0, 0, "levels/level1"));
+	(Renderer::renderer)->switch_screen(new GameScreen(200, 200, 0, 0, "levels/level1"));
 }
 
 void
@@ -126,10 +126,9 @@ GameScreen::update(void)
 void
 GameScreen::render(void)
 {
-	for (auto entity : this->level->entities) {
-		entity.draw(this->win);
+	for (Entity* entity : this->level->entities) {
+		entity->draw(this->win);
 	}
-	mvwprintw(this->win, 10, 10, "%d", this->level->entities.size());
 	wrefresh(this->win);
 }
 
