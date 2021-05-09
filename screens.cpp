@@ -93,7 +93,7 @@ play_button(WINDOW* win)
 {
 	/* mvwprintw(win, 10, 10, "play"); */
 	/* wrefresh(win); */
-	(Renderer::renderer)->switch_screen(new GameScreen(40, 40, 0, 0));
+	(Renderer::renderer)->switch_screen(new GameScreen(40, 40, 0, 0, "levels/level1"));
 }
 
 void
@@ -111,10 +111,10 @@ quit_button(WINDOW* win)
 }
 
 /* game screen */
-GameScreen::GameScreen(int h, int w, int y, int x)
+GameScreen::GameScreen(int h, int w, int y, int x, std::string filepath)
 : Screen(h, w, y, x)
 {
-
+	this->level = new Level(filepath);
 }
 
 void
@@ -126,7 +126,9 @@ GameScreen::update(void)
 void
 GameScreen::render(void)
 {
-	mvwprintw(this->win, 0, 0, "game screen");
+	for (auto entity : this->level->entities) {
+		entity.draw(this->win);
+	}
 	wrefresh(this->win);
 }
 

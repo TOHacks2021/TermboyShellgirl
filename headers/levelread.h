@@ -1,14 +1,16 @@
 #ifndef __LEVELREAD_H__
 #define __LEVELREAD_H__
 
+class Level;
+
 #include <string>
 #include <vector>
 #include <iostream>
-
 #include "entity.h"
 
 class Level {
 	public:
+		std::vector<Entity> entities;
 		Level(std::string filename);
 		~Level();
 		void draw();
@@ -17,7 +19,6 @@ class Level {
 		char** grid;
         int time; 
         int length, height;
-		std::vector<Entity> entities;
         void parseFile(std::string filename);
         int red_gems_remaining, blue_gems_remaining;
         int red_spawn_x, red_spawn_y;
