@@ -1,0 +1,12 @@
+#!/bin/sh
+
+level_dir="/usr/share/tbsg/levels"
+
+levels=`ls -1 "$level_dir"`
+[ -z "$levels" ] && echo "no levels available" && exit 1
+echo "$levels" | nl
+read -p 'Choose a level by number marked > ' choice
+chosen=`echo "$levels" | sed -n "$choice p"`
+[ ! -f "$level_dir/$chosen" ] && "chosen file does not exist" && exit 1
+
+./tbsg -f "$level_dir/$chosen"
