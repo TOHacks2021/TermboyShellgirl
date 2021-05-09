@@ -11,6 +11,7 @@ typedef struct PlayerControls {
 	char move_right;
 	char interact;	
 	char switch_player;
+	char quit_game;
 } PlayerControls;
 
 class Entity {
@@ -21,6 +22,7 @@ class Entity {
 
 		int getX() const;
 		int getY() const;
+		void setPos(int x, int y);
 	protected:
 		Entity(int x, int y);
 		int x, y;
@@ -47,15 +49,16 @@ class Player: public ColouredEntity {
         Player(int x, int y, char color);
         void draw(WINDOW* win) override;
 		void update(Level* level) override;
+	private:
+		bool gravStep;
+		bool isJumping;
+		int jumpDistance;
 		void moveLeft(Level* level);
 		void moveRight(Level* level);
 		void moveVertical(Level* level);
 		void startJump(Level* level);
 		void applyJump(Level* level);
-	private:
-		bool gravStep;
-		bool isJumping;
-		int jumpDistance;
+		void checkDeath(Level* level);
 };
 
 class Gem: public ColouredEntity {

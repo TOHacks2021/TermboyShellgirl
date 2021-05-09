@@ -23,6 +23,13 @@ int Entity::getY() const {
     return y;
 }
 
+void
+Entity::setPos(int x, int y)
+{
+	this->x = x;
+	this->y = y;
+}
+
 Player::Player(int x, int y, char color)
 : ColouredEntity(x, y, color)
 {
@@ -67,7 +74,11 @@ Player::update(Level* level)
 		this->jumpDistance = PLAYER_JUMP_HEIGHT;
 	} else if (c == ctr.switch_player) {
 		Player::active_color = (Player::active_color == ColouredEntity::RED) ? ColouredEntity::BLUE : ColouredEntity::RED;
+	} else if (c== ctr.quit_game) {
+		curses_exit();
+		exit(1);
 	}
+	this->checkDeath(level);
 
 }
 
@@ -120,6 +131,18 @@ Player::startJump(Level* level)
 	if (true == this->isJumping) return;
 	this->isJumping = true;
 	this->jumpDistance = PLAYER_JUMP_HEIGHT;
+}
+
+void
+Player::checkDeath(Level* level)
+{
+	char block_under = level->getGrid()[this->x][this->y+1];
+
+	if (
+		'!' == block_under ||
+		('~' == block_under && ColouredEntity::RED == this->getColor()) || 
+		('^' == block_under && ColouredEntity::BLUE == this->getColor())
+	) level->resetSpawn();
 }
 
 ColouredEntity::ColouredEntity(int x, int y, char color) : Entity(x, y) { 

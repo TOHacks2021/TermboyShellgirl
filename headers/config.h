@@ -11,7 +11,8 @@ const PlayerControls player_controls = {
 	.move_left = 'a',
 	.move_right = 'd',
 	.interact = 'x',
-	.switch_player = ' '
+	.switch_player = ' ',
+	.quit_game = 'q'
 };
 
 constexpr LevelTiles tiles = {

@@ -1,6 +1,6 @@
 CC=g++
 CFLAGS=-pipe -O2 -Wall -Wno-write-strings -g
-LIBS=-lmenu -lncurses
+LIBS=-ltinfo -lmenu -lncurses
 
 DEPS=levelread.o entity.o render.o screens.o utils.o headers/config.h
 

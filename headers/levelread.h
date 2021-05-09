@@ -20,6 +20,7 @@ class Level {
 		void update();
 		void remove_red_gem();
 		void remove_blue_gem();
+		void resetSpawn();
 		Player* red_player;
 		Player* blue_player;
         int red_gems_remaining, blue_gems_remaining;

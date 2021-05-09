@@ -32,7 +32,7 @@ main(int argc, char** argv)
 
 		switch (c) {
 			case 'h':
-				printf("help option\n");
+				printf("Usage: tbsg -f [map file]\n");
 				break;
 			case 'f':
 				gameloop(std::string(optarg));
@@ -62,6 +62,4 @@ gameloop(std::string filename)
 		(Renderer::renderer)->render_screen();
 		(Renderer::renderer)->update_screen();
 	}
-
-	curses_exit();
 }

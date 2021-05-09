@@ -192,3 +192,11 @@ void Level::remove_blue_gem() {
 void Level::remove_red_gem() {
     this->red_gems_remaining--;
 }
+
+void
+Level::resetSpawn()
+{
+	this->red_player->setPos(this->red_spawn_x, this->red_spawn_y);
+	this->blue_player->setPos(this->blue_spawn_x, this->blue_spawn_y);
+}
+
