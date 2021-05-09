@@ -11,9 +11,9 @@ Level::Level(std::string filename) {
 }
 
 void Level::draw() {
-    for (int i = 0; i < length; i++) {
-        for (int j = 0; j < height; j++) {
-            std::cout << grid[i][j];
+    for (int i = 0; i < height; i++) {
+        for (int j = 0; j < length; j++) {
+            std::cout << grid[j][i];
         }
         std::cout << std::endl;
     }
@@ -46,25 +46,26 @@ void Level::parseFile(std::string filename) {
 
     for (int i = 0; i < length; i++) {
         for (int j = 0; j < height; j++) {
-            if (lines.at(j).at(i) == tiles.wall || letters.find((lines.at(j).at(i)) 
-            != std::string::npos)) {
+            char c = lines.at(j).at(i);
+            if (c == tiles.wall || letters.find(c) != std::string::npos) {
                 grid[i][j] = tiles.wall;
             }
-            else if (LH.find((lines.at(j).at(i)))) {
-                //Door* door = new Door{};
+            else if (LH.find(c) != std::string::npos) {
+                grid[i][j] = tiles.wall;
             }
-            else if (RH.find((lines.at(j).at(i)))) {
-
+            else if (RH.find(c) != std::string::npos) {
+                grid[i][j] = tiles.wall;
             }
-            else if (LV.find((lines.at(j).at(i)))) {
-
-            }
-            else if (RV.find((lines.at(j).at(i)))) {
-
+            else if (LV.find(c) != std::string::npos) {
+                grid[i][j] = tiles.wall;
+            }   
+            else if (RV.find(c) != std::string::npos) {
+                grid[i][j] = tiles.wall;
             }
             else {
                 grid[i][j] = tiles.empty;
-                switch (lines.at(j).at(i))
+                
+                switch (c)
                 {
                     case tiles.red_gem:
                     {
