@@ -197,17 +197,6 @@ getDoorDir(std::vector<std::string> lines, int x, int y)
 	fprintf(stderr, "u got issues with yo doors bro,\n");
 }
 
-/* void */
-/* bindControllerById(ControlEntity* controller, std::vector<Door*> doors, char id) */
-/* { */
-/* 	for (Door* door : doors) { */
-/* 		if (toupper(id) == door->getId()) { */
-/* 			door->setController(controller); */
-/* 			break; */
-/* 		} */
-/* 	} */
-/* } */
-
 void Level::remove_blue_gem() {
     this->blue_gems_remaining--;
 }

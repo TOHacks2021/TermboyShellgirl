@@ -58,6 +58,8 @@ void
 Player::update(Level* level)
 {
 	this->moveVertical(level);
+	this->checkDeath(level);
+
 	if (this->getColor() != Player::active_color) return;
 
 	int c;
@@ -79,7 +81,6 @@ Player::update(Level* level)
 		curses_exit();
 		exit(1);
 	}
-	this->checkDeath(level);
 
 }
 
@@ -364,7 +365,7 @@ Door::getActivated(Level* level)
 {
 	for (ControlEntity* controller : level->controllers) {
 		/* printf("%c:%c ", this->getId(), controller->getId()); */
-		if (toupper(controller->getId() == this->getId())) {
+		if (toupper(controller->getId()) == this->getId()) {
 			return controller->getActive();
 		}
 	}
